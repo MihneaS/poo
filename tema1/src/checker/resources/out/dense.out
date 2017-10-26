@@ -1,0 +1,50 @@
+P dead
+R dead
+R 0 0 600 3 19
+K 0 0 900 13 3
+K 5 480 304 3 2
+K 0 0 900 5 14
+K 0 0 900 8 17
+P 3 400 650 8 11
+W dead
+P 0 0 500 18 2
+R 0 0 600 13 1
+W 0 0 400 6 4
+P 0 0 190 11 13
+K dead
+W dead
+W dead
+R dead
+P 0 0 500 18 3
+W dead
+K dead
+P 5 480 702 13 2
+P 3 400 650 17 19
+P 0 0 500 1 18
+P 5 480 750 16 8
+W dead
+R dead
+P 0 0 500 4 2
+P 3 400 650 10 14
+K 0 200 434 19 12
+W 0 0 375 16 11
+K 0 0 592 17 13
+K dead
+R dead
+W dead
+R dead
+P 0 0 58 4 8
+K 0 0 900 10 7
+W dead
+R 0 0 600 18 0
+K 0 0 900 3 13
+P 0 0 500 10 4
+W dead
+K dead
+R 0 200 264 7 0
+K dead
+R 0 200 120 2 11
+P dead
+W dead
+K dead
+P dead
