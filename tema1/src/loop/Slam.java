@@ -9,11 +9,11 @@ public final class Slam extends KnightAbility implements InstantAbility {
         raceModifier = new RaceModifier(0.8, 1.2,  0.9, 1.05);
     }
 
-    public void applyTo(final Hero defender, Hero attacker, final Character land) {
+    public void applyTo(final Hero hero, final Character land) {
         int modifiedDamage = (int) Math.round(damage *
-                raceModifier.get(defender.getRace()) * landModifier.get(land));
-        defender.reciveDamage(modifiedDamage, attacker);
-        defender.setOverTimeEffect(new SlamOverTime(defender));
+                raceModifier.get(hero.getRace()) * landModifier.get(land));
+        hero.reciveDamage(modifiedDamage);
+        hero.setOverTimeEffect(new SlamOverTime(hero));
     }
 
     public int getDamage() {

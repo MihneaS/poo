@@ -8,7 +8,7 @@ public final class PuppetHero extends Hero {
     }
 
     @Override
-    void reciveDamage(int damage, Hero attacker) {
+    void reciveDamage(int damage) {
         hp += damage;
     }
 

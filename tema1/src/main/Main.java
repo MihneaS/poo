@@ -61,7 +61,7 @@ public class Main {
                     if (attacker == null) {
                         attacker = new SentinelHero();
                     }
-                    hero.applyOverTimeEffect(attacker);
+                    hero.applyOverTimeEffect();
                 }
 
                 // Move heroes

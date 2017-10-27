@@ -7,10 +7,10 @@ public final class SlamOverTime extends Ability implements OverTimeEffect {
         turns = 1;
     }
 
-    public void applyTo(Hero defender, Hero attacker) {
+    public void applyTo(final Hero hero) {
         if (--turns == 0) {
-            defender.unStun();
-            defender.finishOvertimeEffect();
+            hero.unStun();
+            hero.finishOvertimeEffect();
         }
     }
 

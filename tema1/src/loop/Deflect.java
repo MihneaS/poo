@@ -14,14 +14,14 @@ public final class Deflect extends WizardAbility implements InstantAbility {
     }
 
     @Override
-    public void applyTo(Hero defender, Hero attacker, Character land) {
-        if (defender.race != 'W') {
+    public void applyTo(Hero hero, Character land) {
+        if (hero.race != 'W') {
             int damage;
             PuppetHero puppet = new PuppetHero();
-            defender.simulateDamageOn(puppet, land);
+            hero.simulateDamageOn(puppet, land);
             damage = (int) Math.round(puppet.getReceivedDamage() * percent *
-                    raceModifier.get(defender.race) * landModifier.get(land));
-            defender.reciveDamage(damage, attacker);
+                    raceModifier.get(hero.race) * landModifier.get(land));
+            hero.reciveDamage(damage);
         }
     }
 

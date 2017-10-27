@@ -12,16 +12,16 @@ public final class Backstab extends RogueAbility implements InstantAbility {
     }
 
     @Override
-    public void applyTo(Hero defender, Hero attacker, Character land) {
+    public void applyTo(Hero hero, Character land) {
         double multipliedDamage = damage;
+        counter = ++counter % 3;
         if (counter == 0 && land == landModifier.getPreferredLand()) {
             multipliedDamage *= DAMAGE_MULTIPLIER;
         }
-        counter = ++counter % 3;
 
         multipliedDamage *= landModifier.get(land) *
-                raceModifier.get(defender.race);
-        defender.reciveDamage((int) Math.round(multipliedDamage), attacker);
+                raceModifier.get(hero.race);
+        hero.reciveDamage((int) Math.round(multipliedDamage));
     }
 
     @Override

@@ -22,14 +22,14 @@ public final class Execute extends KnightAbility implements InstantAbility{
     }
 
     @Override
-    public void applyTo( Hero defender, Hero attacker, Character land) {
+    public void applyTo(final Hero hero, final Character land) {
         int modifiedDamage;
-        if ((double) defender.hp < hpLimit * defender.maxHp) {
-            defender.reciveDamage(defender.hp,attacker);
+        if ((double) hero.hp < hpLimit * hero.maxHp) {
+            hero.reciveDamage(hero.hp);
         } else {
             modifiedDamage = (int) Math.round(damage *
-                    raceModifier.get(defender.race) * landModifier.get(land));
-            defender.reciveDamage(modifiedDamage, attacker);
+                    raceModifier.get(hero.race) * landModifier.get(land));
+            hero.reciveDamage(modifiedDamage);
         }
     }
 

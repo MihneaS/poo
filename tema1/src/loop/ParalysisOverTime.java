@@ -16,14 +16,14 @@ public final class ParalysisOverTime extends Paralysis
         hero.stun();
     }
 
-    public void applyTo(Hero defender, Hero attacker) {
+    public void applyTo(Hero hero) {
         double multipliedDamage = damage;
         multipliedDamage *= landModifier.get(initialLand) *
-                raceModifier.get(defender.race);
-        defender.reciveDamage((int) Math.round(multipliedDamage), attacker);
+                raceModifier.get(hero.race);
+        hero.reciveDamage((int) Math.round(multipliedDamage));
         if (--turns == 0) {
-            defender.unStun();
-            defender.finishOvertimeEffect();
+            hero.unStun();
+            hero.finishOvertimeEffect();
         }
     }
 

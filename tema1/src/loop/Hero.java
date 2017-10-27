@@ -72,11 +72,10 @@ public class Hero {
     }
 
 
-    void reciveDamage(int damage, Hero attacker) {
+    void reciveDamage(int damage) {
         if (hp <= damage) {
             hp = 0;
             alive = false;
-            attacker.winXPAndLevelUpFrom(this);
         } else {
             hp -= damage;
         }
@@ -119,8 +118,8 @@ public class Hero {
         return stunned;
     }
 
-    public void applyOverTimeEffect(Hero attacker) {
-        overTimeEffect.applyTo(this, attacker);
+    public void applyOverTimeEffect() {
+        overTimeEffect.applyTo(this);
     }
 
     public void applyAbilitiesTo(Hero other, Character land) {
@@ -129,10 +128,11 @@ public class Hero {
             if (!other.isAlive()) {
                 return;
             }
-            abilities.get(0).applyTo(other, this, land);
-            abilities.get(1).applyTo(other, this, land);
+            abilities.get(0).applyTo(other, land);
+            abilities.get(1).applyTo(other, land);
             if (!other.isAlive() && other.getRace() != 'N') {
                 other.applyAbilitiesTo(this, land);
+                winXPAndLevelUpFrom(other);
             }
         }
     }
@@ -146,9 +146,9 @@ public class Hero {
         }
     }
 
-    public void simulateDamageOn(Hero defender, Character land) {
-        abilities.get(0).applyTo(defender, this, land);
-        abilities.get(1).applyTo(defender, this, land);
+    public void simulateDamageOn(Hero hero, Character land) {
+        abilities.get(0).applyTo(hero, land);
+        abilities.get(1).applyTo(hero, land);
     }
 
     private boolean canLevelUp() {

@@ -10,12 +10,12 @@ public class Paralysis extends RogueAbility implements InstantAbility {
     }
 
     @Override
-    public void applyTo(Hero defender, Hero attacker, Character land) {
+    public void applyTo(Hero hero, Character land) {
         double multipliedDamage = damage;
         multipliedDamage *= landModifier.get(land) *
-                raceModifier.get(defender.race);
-        defender.reciveDamage((int) Math.round(multipliedDamage), attacker);
-        defender.setOverTimeEffect(new ParalysisOverTime(defender, land));
+                raceModifier.get(hero.race);
+        hero.reciveDamage((int) Math.round(multipliedDamage));
+        hero.setOverTimeEffect(new ParalysisOverTime(hero, land));
     }
 
     @Override

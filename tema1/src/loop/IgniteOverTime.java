@@ -12,12 +12,12 @@ final class IgniteOverTime extends Ignite implements OverTimeEffect{
         turns = 2;
     }
 
-    public void applyTo(Hero defender, Hero attacker) {
+    public void applyTo(Hero hero) {
         int modifiedDamage = (int) Math.round(damage *
-                raceModifier.get(defender.race) * landModifier.get(initialLand));
-        defender.reciveDamage(modifiedDamage, attacker);
+                raceModifier.get(hero.race) * landModifier.get(initialLand));
+        hero.reciveDamage(modifiedDamage);
         if (--turns == 0) {
-            defender.finishOvertimeEffect();
+            hero.finishOvertimeEffect();
         }
 
     }

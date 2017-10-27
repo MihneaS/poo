@@ -10,12 +10,12 @@ public final class Drain extends WizardAbility implements InstantAbility {
     }
 
     @Override
-    public void applyTo(Hero defender, Hero attacker, Character land) {
+    public void applyTo(Hero hero, Character land) {
         Double damage = percent *
-                Math.min(0.3 * defender.getMaxHp(), defender.getHp());
+                Math.min(0.3 * hero.getMaxHp(), hero.getHp());
         int modifiedDamage = (int) Math.round(damage *
-                raceModifier.get(defender.race) * landModifier.get(land));
-        defender.reciveDamage(modifiedDamage, attacker);
+                raceModifier.get(hero.race) * landModifier.get(land));
+        hero.reciveDamage(modifiedDamage);
     }
 
     @Override
