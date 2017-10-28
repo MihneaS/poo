@@ -6,7 +6,7 @@ public final class Slam extends KnightAbility implements InstantAbility {
     private static final int BONUS_DAMAGE_PER_LEVEL = 40;
 
     Slam() {
-        raceModifier = new RaceModifier(0.8, 1.2,  0.9, 1.05);
+        raceModifier = new RaceModifier(0.8f, 1.2f,  0.9f, 1.05f);
     }
 
     public void applyTo(final Hero hero, final Character land) {

@@ -6,36 +6,36 @@ import java.util.Map;
 public abstract class Ability {
 
     class RaceModifier { // TODO ar trebui Race modiifer doar sa extinda clasa map?
-        private final Map<Character, Double> map = new HashMap<Character, Double>();
+        private final Map<Character, Float> map = new HashMap<Character, Float>();
 
-        RaceModifier(Double rogue, Double knight,
-                     Double pyromancer, Double wizard) {
+        RaceModifier(Float rogue, Float knight,
+                     Float pyromancer, Float wizard) {
             map.put('R', rogue);
             map.put('K', knight);
             map.put('P', pyromancer);
             map.put('W', wizard);
-            map.put('N', 1d);
+            map.put('N', 1f);
         }
 
-        Double get(Character key) {
+        Float get(Character key) {
             return map.get(key);
         }
     }
 
     class LandModifier {
         private final Character preferredLand;
-        private final Double modifer;
+        private final Float modifer;
 
-        LandModifier(Character preferredLand, Double modifer) {
+        LandModifier(Character preferredLand, Float modifer) {
             this.preferredLand = preferredLand;
             this.modifer = modifer;
         }
 
-        Double get (Character land) {
+        Float get (Character land) {
             if (land == preferredLand) {
                 return modifer;
             } else {
-                return 1d;
+                return 1f;
             }
         }
 

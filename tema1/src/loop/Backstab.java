@@ -8,13 +8,18 @@ public final class Backstab extends RogueAbility implements InstantAbility {
     private int counter = 0;
 
     Backstab() {
-        raceModifier = new RaceModifier(1.2, 0.9, 1.25, 1.25);
+        raceModifier = new RaceModifier(1.2f, 0.9f, 1.25f, 1.25f);
     }
 
     @Override
     public void applyTo(Hero hero, Character land) {
-        double multipliedDamage = damage;
+        simulateOn(hero, land);
         counter = ++counter % 3;
+    }
+
+    @Override
+    public void simulateOn(Hero hero, Character land){
+        double multipliedDamage = damage;
         if (counter == 0 && land == landModifier.getPreferredLand()) {
             multipliedDamage *= DAMAGE_MULTIPLIER;
         }

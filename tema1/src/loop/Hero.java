@@ -147,8 +147,8 @@ public class Hero {
     }
 
     public void simulateDamageOn(Hero hero, Character land) {
-        abilities.get(0).applyTo(hero, land);
-        abilities.get(1).applyTo(hero, land);
+        abilities.get(0).simulateOn(hero, land);
+        abilities.get(1).simulateOn(hero, land);
     }
 
     private boolean canLevelUp() {

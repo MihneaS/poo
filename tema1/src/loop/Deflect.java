@@ -4,13 +4,13 @@ import java.lang.Math;
 
 public final class Deflect extends WizardAbility implements InstantAbility {
 
-    private Double percent = 0.35;
-    private static final Double BONUS_PERCENT_PER_LEVEL = 0.02;
-    private static final Double MAX_PERCENT = 0.7;
+    private Float percent = 0.35f;
+    private static final Float BONUS_PERCENT_PER_LEVEL = 0.02f;
+    private static final Float MAX_PERCENT = 0.7f;
 
-    Deflect() {
+    Deflect() { //adjust for execute
         super();
-        raceModifier = new RaceModifier(1.2,1.4, 1.3, 0d);
+        raceModifier = new RaceModifier(1.2f,1.4f, 1.3f, 0f);
     }
 
     @Override

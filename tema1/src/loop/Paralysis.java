@@ -6,7 +6,7 @@ public class Paralysis extends RogueAbility implements InstantAbility {
 
     Paralysis () {
         super();
-        raceModifier = new RaceModifier(0.9, 0.8, 1.2, 1.25);
+        raceModifier = new RaceModifier(0.9f, 0.8f, 1.2f, 1.25f);
     }
 
     @Override

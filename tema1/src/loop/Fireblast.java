@@ -7,7 +7,7 @@ public final class Fireblast extends PyromancerAbility implements InstantAbility
 
     Fireblast() {
         super();
-        raceModifier = new RaceModifier(0.8, 1.2, 0.9, 1.05);
+        raceModifier = new RaceModifier(0.8f, 1.2f, 0.9f, 1.05f);
     }
 
     @Override

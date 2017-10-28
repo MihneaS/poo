@@ -1,18 +1,18 @@
 package loop;
 
 public final class Drain extends WizardAbility implements InstantAbility {
-    private Double percent = 0.2;
-    private static final Double BONUS_PERCENT_PER_LEVEL = 0.05;
+    private Float percent = 0.2f;
+    private static final Float BONUS_PERCENT_PER_LEVEL = 0.05f;
 
     Drain() {
         super();
-        raceModifier = new RaceModifier(0.8, 1.2, 0.9, 1.05);
+        raceModifier = new RaceModifier(0.8f, 1.2f, 0.9f, 1.05f);
     }
 
     @Override
     public void applyTo(Hero hero, Character land) {
-        Double damage = percent *
-                Math.min(0.3 * hero.getMaxHp(), hero.getHp());
+        Float damage = percent *
+                Math.min(0.3f * hero.getMaxHp(), hero.getHp());
         int modifiedDamage = (int) Math.round(damage *
                 raceModifier.get(hero.race) * landModifier.get(land));
         hero.reciveDamage(modifiedDamage);

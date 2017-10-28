@@ -4,15 +4,15 @@ import java.lang.Math;
 
 public final class Execute extends KnightAbility implements InstantAbility{
 
-    private Double hpLimit = .2;
+    private Float hpLimit = .2f;
     private int damage = 200;
     private static final int BONUS_DAMAGE_PER_LEVEL = 30;
-    private static final Double BONUS_HP_LIMIT_PER_LEVEL = 0.01;
-    private static final Double MAX_HP_LIMIT = 0.4;
+    private static final Float BONUS_HP_LIMIT_PER_LEVEL = 0.01f;
+    private static final Float MAX_HP_LIMIT = 0.4f;
 
     Execute() {
         super();
-        raceModifier = new RaceModifier(1.15, 1d, 1.1, 0.8);
+        raceModifier = new RaceModifier(1.15f, 1f, 1.1f, 0.8f);
     }
 
     @Override
