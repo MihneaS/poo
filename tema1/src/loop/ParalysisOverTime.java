@@ -18,8 +18,8 @@ public final class ParalysisOverTime extends Paralysis
 
     public void applyTo(final Hero hero) {
         double multipliedDamage = damage;
-        multipliedDamage *= landModifier.get(initialLand) *
-                raceModifier.get(hero.race);
+        multipliedDamage *= landModifier.get(initialLand)
+                * raceModifier.get(hero.race);
         hero.reciveDamage((int) Math.round(multipliedDamage));
         if (--turns == 0) {
             hero.unStun();
@@ -27,6 +27,6 @@ public final class ParalysisOverTime extends Paralysis
         }
     }
 
-    public void levelUp() {}
+    public void levelUp() { }
 
 }

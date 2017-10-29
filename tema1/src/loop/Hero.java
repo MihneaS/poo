@@ -5,21 +5,23 @@ import java.util.List;
 
 public class Hero {
 
-    private final static int XP_THRESHOLD_ADDITION = 50;
-    private final static int P_BASE_HP = 500;
-    private final static int P_PER_LEVEL_HP = 50;
-    private final static int K_BASE_HP = 900;
-    private final static int K_PER_LEVEL_HP = 80;
-    private final static int W_BASE_HP = 400;
-    private final static int W_PER_LEVEL_HP = 30;
-    private final static int R_BASE_HP = 600;
-    private final static int R_PER_LEVEL_HP = 40;
-    private final static int BASE_XP_THRESHOLD = 250;
-    final static char NA_RACE = 'N';
+    private static final int XP_THRESHOLD_ADDITION = 50;
+    private static final int P_BASE_HP = 500;
+    private static final int P_PER_LEVEL_HP = 50;
+    private static final int K_BASE_HP = 900;
+    private static final int K_PER_LEVEL_HP = 80;
+    private static final int W_BASE_HP = 400;
+    private static final int W_PER_LEVEL_HP = 30;
+    private static final int R_BASE_HP = 600;
+    private static final int R_PER_LEVEL_HP = 40;
+    private static final int BASE_XP_THRESHOLD = 250;
+    private static final int BASE_XP_BONUS = 200;
+    private static final int XP_BONUS_PER_LEVEL = 40;
+    static final char NA_RACE = 'N';
 
     protected Character race;
-    int maxHp;
-    int hp;
+    protected int maxHp;
+    protected int hp;
     private int hpPerLevel;
     private int level = 0;
     private int xp = 0;
@@ -35,10 +37,10 @@ public class Hero {
     private int col;
     private boolean onCoolDown = false;
 
-    public Hero(final Character race, final int row, final int col) {
-        this.race = race;
-        this.row = row;
-        this.col = col;
+    public Hero(final Character raceP, final int rowP, final int colP) {
+        this.race = raceP;
+        this.row = rowP;
+        this.col = colP;
         switch (race) {
             case 'P':
                 maxHp = P_BASE_HP;
@@ -64,6 +66,7 @@ public class Hero {
                 abilities.add(new Backstab());
                 abilities.add(new Paralysis());
                 break;
+            default: break;
         }
         hp = maxHp;
     }
@@ -94,11 +97,11 @@ public class Hero {
         ++level;
     }
 
-    void setOverTimeEffect(final OverTimeEffect overTimeEffect) {
-        this.overTimeEffect = overTimeEffect;
+    void setOverTimeEffect(final OverTimeEffect overTimeEffectP) {
+        this.overTimeEffect = overTimeEffectP;
     }
 
-    void finishOvertimeEffect () {
+    void finishOvertimeEffect() {
         overTimeEffect = new SentinelEffect();
     }
 
@@ -110,8 +113,8 @@ public class Hero {
         toBeUnStunned = true;
     }
 
-    void setLand(final Character land) {
-        this.land = land;
+    void setLand(final Character landP) {
+        this.land = landP;
     }
 
     public boolean isStunned() {
@@ -122,23 +125,23 @@ public class Hero {
         overTimeEffect.applyTo(this);
     }
 
-    public void applyAbilitiesTo(final Hero other, final Character land) {
+    public void applyAbilitiesTo(final Hero other, final Character landP) {
         if (!isOnCoolDown()) {
             onCoolDown = true;
             if (!other.isAlive()) {
                 return;
             }
-            abilities.get(0).applyTo(other, land);
-            abilities.get(1).applyTo(other, land);
+            abilities.get(0).applyTo(other, landP);
+            abilities.get(1).applyTo(other, landP);
             if (!other.isAlive() && other.getRace() != 'N') {
-                other.applyAbilitiesTo(this, land);
+                other.applyAbilitiesTo(this, landP);
                 winXPAndLevelUpFrom(other);
             }
         }
     }
 
     private void winXPAndLevelUpFrom(final Hero killed) {
-        if(this.isAlive()) {
+        if (this.isAlive()) {
             winXp(killed);
             while (canLevelUp()) {
                 levelUp();
@@ -146,9 +149,9 @@ public class Hero {
         }
     }
 
-    void simulateDamageOn(final Hero hero, final Character land) {
-        abilities.get(0).simulateOn(hero, land);
-        abilities.get(1).simulateOn(hero, land);
+    void simulateDamageOn(final Hero hero, final Character landP) {
+        abilities.get(0).simulateOn(hero, landP);
+        abilities.get(1).simulateOn(hero, landP);
     }
 
     private boolean canLevelUp() {
@@ -159,8 +162,9 @@ public class Hero {
         return level;
     }
 
-    private void winXp(Hero other) {
-        xp += Math.max(0, 200 - (level - other.getLevel()) * 40);
+    private void winXp(final Hero other) {
+        xp += Math.max(0, BASE_XP_BONUS
+                - (level - other.getLevel()) * XP_BONUS_PER_LEVEL);
     }
 
     int getHp() {
@@ -185,6 +189,7 @@ public class Hero {
             case 'D': row++; break;
             case 'L': col--; break;
             case 'R': col++; break;
+            default: break;
         }
     }
 
@@ -206,15 +211,15 @@ public class Hero {
         return row;
     }
 
-    private boolean isOnCoolDown(){
+    private boolean isOnCoolDown() {
         return onCoolDown;
     }
 
     @Override
     public String toString() {
-        if(isAlive()) {
-            return race + " " + level + " " + xp + " " + hp + " " +
-                    row + " " + col;
+        if (isAlive()) {
+            return race + " " + level + " " + xp + " " + hp + " "
+                    + row + " " + col;
         } else {
             return race + " dead";
         }

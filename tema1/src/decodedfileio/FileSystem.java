@@ -16,16 +16,18 @@ public final class FileSystem implements IReader, IWriter {
     private FileReader fileReader;
     private FileWriter fileWriter;
 
-    public FileSystem(String inputFile, String outputFile) throws IOException {
+    public FileSystem(final String inputFile, final String outputFile)
+            throws IOException {
         this.initReader(inputFile);
         this.initWriter(outputFile);
     }
 
-    private void initReader(String inputFile) throws FileNotFoundException {
+    private void initReader(final String inputFile)
+            throws FileNotFoundException {
         this.fileReader = new FileReader(inputFile);
     }
 
-    private void initWriter(String outputFile) throws IOException {
+    private void initWriter(final String outputFile) throws IOException {
         this.fileWriter = new FileWriter(outputFile);
     }
 
@@ -57,31 +59,31 @@ public final class FileSystem implements IReader, IWriter {
         this.fileReader.close();
     }
 
-    public void writeCharacter(char variableToWrite) throws IOException {
+    public void writeCharacter(final char variableToWrite) throws IOException {
         this.fileWriter.writeCharacter(variableToWrite);
     }
 
-    public void writeBool(boolean variableToWrite) throws IOException {
+    public void writeBool(final boolean variableToWrite) throws IOException {
         this.fileWriter.writeBool(variableToWrite);
     }
 
-    public void writeInt(int variableToWrite) throws IOException {
+    public void writeInt(final int variableToWrite) throws IOException {
         this.fileWriter.writeInt(variableToWrite);
     }
 
-    public void writeLong(long variableToWrite) throws IOException {
+    public void writeLong(final long variableToWrite) throws IOException {
         this.fileWriter.writeLong(variableToWrite);
     }
 
-    public void writeFloat(float variableToWrite) throws IOException {
+    public void writeFloat(final float variableToWrite) throws IOException {
         this.fileWriter.writeFloat(variableToWrite);
     }
 
-    public void writeDouble(double variableToWrite) throws IOException {
+    public void writeDouble(final double variableToWrite) throws IOException {
         this.fileWriter.writeDouble(variableToWrite);
     }
 
-    public void writeWord(String variableToWrite) throws IOException {
+    public void writeWord(final String variableToWrite) throws IOException {
         this.fileWriter.writeWord(variableToWrite);
     }
 

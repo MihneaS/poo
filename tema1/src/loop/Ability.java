@@ -24,16 +24,16 @@ abstract class Ability implements BasicAbility {
 
     class LandModifier {
         private final Character preferredLand;
-        private final Float modifer;
+        private final Float modifier;
 
-        LandModifier(final Character preferredLandP, final Float modiferP) {
+        LandModifier(final Character preferredLandP, final Float modifierP) {
             this.preferredLand = preferredLandP;
-            this.modifer = modiferP;
+            this.modifier = modifierP;
         }
 
         Float get(final Character land) {
             if (land == preferredLand) {
-                return modifer;
+                return modifier;
             } else {
                 return 1f;
             }
@@ -46,9 +46,9 @@ abstract class Ability implements BasicAbility {
 
     protected RaceModifier raceModifier;
     protected LandModifier landModifier;
-    int turns;
-    int damageDealtThisRound = 0;
-    boolean usedThisRound = false;
+    protected int turns;
+    protected int damageDealtThisRound = 0;
+    protected boolean usedThisRound = false;
 
     public final void refresh() {
         damageDealtThisRound = 0;

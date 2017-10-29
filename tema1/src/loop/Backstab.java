@@ -6,6 +6,7 @@ final class Backstab extends RogueAbility implements InstantAbility {
 
     private static final int BASE_DAMAGE = 200;
     private static final int BONUS_DAMAGE_PER_LEVEL = 20;
+    private static final int LUCKY_TURN = 3;
     private static final float DAMAGE_MULTIPLIER = 1.5f;
     private static final float RM_ROGUE = 1.2f;
     private static final float RM_KNIGHT = 0.9f;
@@ -27,13 +28,13 @@ final class Backstab extends RogueAbility implements InstantAbility {
         hero.reciveDamage(damageToDeal);
         damageDealtThisRound = modifyDamage(intermediarDamage, NA_RACE, land);
         usedThisRound = true;
-        counter = ++counter % 3;
+        counter = ++counter % LUCKY_TURN;
     }
 
-    private int modifyDamage(final Float damage,
+    private int modifyDamage(final Float damageP,
                              final Character race, final Character land) {
-        return (int) Math.round(damage * landModifier.get(land) *
-                raceModifier.get(race));
+        return (int) Math.round(damageP * landModifier.get(land)
+                * raceModifier.get(race));
     }
 
     private Float calculateIntermediarDamage(final Character land) {
@@ -45,7 +46,7 @@ final class Backstab extends RogueAbility implements InstantAbility {
     }
 
     @Override
-    public void simulateOn(final Hero hero, final Character land){
+    public void simulateOn(final Hero hero, final Character land) {
         if (usedThisRound) {
             hero.reciveDamage(damageDealtThisRound);
         } else {

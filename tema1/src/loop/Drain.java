@@ -8,6 +8,7 @@ final class Drain extends WizardAbility implements InstantAbility {
     private static final float RM_KNIGHT = 1.2f;
     private static final float RM_PYROMANCER = 0.9f;
     private static final float RM_WIZARD = 1.05f;
+    private static final float MAXIMUM_AFFECTED_HP_PERCENT = 0.3f;
     private Float percent = BASE_PERCENT;
 
     Drain() {
@@ -18,10 +19,12 @@ final class Drain extends WizardAbility implements InstantAbility {
 
     @Override
     public void applyTo(final Hero hero, final Character land) {
-        Float damage = percent *
-                Math.min(0.3f * hero.getMaxHp(), hero.getHp());
-        int modifiedDamage = (int) Math.round(damage *
-                raceModifier.get(hero.race) * landModifier.get(land));
+        Float damage = percent
+                * Math.min(
+                        MAXIMUM_AFFECTED_HP_PERCENT * hero.getMaxHp(),
+                        hero.getHp());
+        int modifiedDamage = (int) Math.round(damage
+                * raceModifier.get(hero.race) * landModifier.get(land));
         hero.reciveDamage(modifiedDamage);
     }
 

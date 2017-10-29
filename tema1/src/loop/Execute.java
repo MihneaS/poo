@@ -1,8 +1,6 @@
 package loop;
 
-import java.lang.Math;
-
-final class Execute extends KnightAbility implements InstantAbility{
+final class Execute extends KnightAbility implements InstantAbility {
 
     private static final float BASE_HP_LIMIT = 0.2f;
     private static final int BASE_DAMAGE = 200;
@@ -36,8 +34,8 @@ final class Execute extends KnightAbility implements InstantAbility{
             damageForSimulation = hero.hp;
             hero.reciveDamage(damageForSimulation);
         } else {
-            modifiedDamage = (int) Math.round(damage *
-                    raceModifier.get(hero.race) * landModifier.get(land));
+            modifiedDamage = (int) Math.round(damage
+                    * raceModifier.get(hero.race) * landModifier.get(land));
             damageForSimulation = Math.round(damage * landModifier.get(land));
             hero.reciveDamage(modifiedDamage);
         }

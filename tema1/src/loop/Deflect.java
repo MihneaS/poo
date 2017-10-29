@@ -1,7 +1,5 @@
 package loop;
 
-import java.lang.Math;
-
 final class Deflect extends WizardAbility implements InstantAbility {
 
     private static final float BASE_PERCENT = 0.35f;
@@ -14,9 +12,9 @@ final class Deflect extends WizardAbility implements InstantAbility {
     private final Hero owner;
     private Float percent = BASE_PERCENT;
 
-    Deflect(final Hero owner) { //adjust for execute
+    Deflect(final Hero ownerP) { //adjust for execute
         super();
-        this.owner = owner;
+        this.owner = ownerP;
         raceModifier = new RaceModifier(RM_ROGUE, RM_KNIGHT,
                 RM_PYROMANCER, RM_WIZARD);
     }
@@ -28,8 +26,8 @@ final class Deflect extends WizardAbility implements InstantAbility {
             PuppetHero puppet = new PuppetHero(owner.getHp(),
                     owner.getMaxHp());
             hero.simulateDamageOn(puppet, land);
-            damage = (int) Math.round(puppet.getReceivedDamage() * percent *
-                    raceModifier.get(hero.race) * landModifier.get(land));
+            damage = (int) Math.round(puppet.getReceivedDamage() * percent
+                    * raceModifier.get(hero.race) * landModifier.get(land));
             hero.reciveDamage(damage);
         }
     }

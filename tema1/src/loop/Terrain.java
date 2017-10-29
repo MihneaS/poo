@@ -3,25 +3,25 @@ package loop;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Terrain {
+public final class Terrain {
 
-    final class Cell{
-        char type;
-        List<Hero> heroes = new ArrayList<Hero>();
-        List<Hero> deadHeroes = new ArrayList<Hero>();
+    final class Cell {
+        private char type;
+        private List<Hero> heroes = new ArrayList<Hero>();
+        private List<Hero> deadHeroes = new ArrayList<Hero>();
 
-        Cell(char type) {
-            this.type = type;
+        Cell(final char typeP) {
+            this.type = typeP;
         }
 
         char getType() {
             return type;
         }
 
-        Hero otherHeroThen(Hero thisHero) {
-            if(heroes.size() > 2) {
+        Hero otherHeroThen(final Hero thisHero) {
+            if (heroes.size() > 2) {
                 for (Hero hero: heroes) {
-                    if(!hero.isAlive()) {
+                    if (!hero.isAlive()) {
                         deadHeroes.add(hero);
                     }
                 }
@@ -45,18 +45,18 @@ public class Terrain {
             }
         }
 
-        void addHero(Hero hero) {
+        void addHero(final Hero hero) {
             heroes.add(hero);
         }
 
-        void removeHero(Hero hero) {
+        void removeHero(final Hero hero) {
             heroes.remove(hero);
         }
     }
 
     private Cell[][] map;
 
-    public Terrain(List<String> list, int n, int m) {
+    public Terrain(final List<String> list, final int n, final int m) {
         map = new Cell[n][m];
         for (int i = 0; i < n; ++i) {
             for (int j = 0; j < m; ++j) {
@@ -66,18 +66,18 @@ public class Terrain {
         }
     }
 
-    private Cell getCellOf(Hero hero) {
+    private Cell getCellOf(final Hero hero) {
         return map[hero.getRow()][hero.getCol()];
     }
 
-    public void addHero(Hero hero) {
+    public void addHero(final Hero hero) {
         getCellOf(hero).addHero(hero);
     }
 
-    public void removeHero(Hero hero) {
+    public void removeHero(final Hero hero) {
         getCellOf(hero).removeHero(hero);
     }
-    public void moveHero(Hero hero, Character direction) {
+    public void moveHero(final Hero hero, final Character direction) {
         if (!hero.isStunned() && hero.isAlive()) {
             getCellOf(hero).removeHero(hero);
             hero.moveTo(direction);
@@ -85,11 +85,11 @@ public class Terrain {
         }
     }
 
-    public Hero otherHeroNextTo(Hero thisHero) {
+    public Hero otherHeroNextTo(final Hero thisHero) {
         return  getCellOf(thisHero).otherHeroThen(thisHero);
     }
 
-    public Character getLandType(Hero hero) {
+    public Character getLandType(final Hero hero) {
         return getCellOf(hero).getType();
     }
 

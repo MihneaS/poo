@@ -2,14 +2,19 @@ package main;
 
 import decodedfileio.implementations.FileReader;
 import decodedfileio.implementations.FileWriter;
-import decodedfileio.interfaces.*;
+import decodedfileio.interfaces.IReader;
+import decodedfileio.interfaces.IWriter;
 
-import loop.*;
+import loop.Hero;
+import loop.Terrain;
 
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
-public class Main {
+public final class Main {
+
+    private Main(final int i) { }
 
     public static void main(String[] args) {
         int n, m, p, r;

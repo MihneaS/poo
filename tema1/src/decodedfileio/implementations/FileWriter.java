@@ -13,36 +13,36 @@ public final class FileWriter implements IWriter {
     private java.io.FileWriter fileWriter;
     private BufferedWriter bufferedWriter;
 
-    public FileWriter(String filePath) throws IOException {
+    public FileWriter(final String filePath) throws IOException {
         this.fileWriter = new java.io.FileWriter(filePath);
         this.bufferedWriter = new BufferedWriter(this.fileWriter);
     }
 
-    public void writeCharacter(char variableToWrite) throws IOException {
+    public void writeCharacter(final char variableToWrite) throws IOException {
         this.bufferedWriter.write(variableToWrite);
     }
 
-    public void writeBool(boolean variableToWrite) throws IOException {
+    public void writeBool(final boolean variableToWrite) throws IOException {
         this.bufferedWriter.write(String.valueOf(variableToWrite));
     }
 
-    public void writeInt(int variableToWrite) throws IOException {
+    public void writeInt(final int variableToWrite) throws IOException {
         this.bufferedWriter.write(String.valueOf(variableToWrite));
     }
 
-    public void writeLong(long variableToWrite) throws IOException {
+    public void writeLong(final long variableToWrite) throws IOException {
         this.bufferedWriter.write(String.valueOf(variableToWrite));
     }
 
-    public void writeFloat(float variableToWrite) throws IOException {
+    public void writeFloat(final float variableToWrite) throws IOException {
         this.bufferedWriter.write(String.valueOf(variableToWrite));
     }
 
-    public void writeDouble(double variableToWrite) throws IOException {
+    public void writeDouble(final double variableToWrite) throws IOException {
         this.bufferedWriter.write(String.valueOf(variableToWrite));
     }
 
-    public void writeWord(String variableToWrite) throws IOException {
+    public void writeWord(final String variableToWrite) throws IOException {
         this.bufferedWriter.write(variableToWrite);
     }
 

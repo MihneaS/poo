@@ -17,7 +17,7 @@ public final class FileReader implements IReader {
     private BufferedReader bufferedReader;
     private StringTokenizer stringTokenizer;
 
-    public FileReader(String filePath) throws FileNotFoundException {
+    public FileReader(final String filePath) throws FileNotFoundException {
         this.fileReader = new java.io.FileReader(filePath);
         this.bufferedReader = new BufferedReader(this.fileReader);
     }

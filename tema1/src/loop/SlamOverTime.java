@@ -14,5 +14,5 @@ final class SlamOverTime extends Ability implements OverTimeEffect {
         }
     }
 
-    public void levelUp() {}
+    public void levelUp() { }
 }
