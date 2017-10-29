@@ -2,21 +2,27 @@ package loop;
 
 import java.lang.Math;
 
-public final class Deflect extends WizardAbility implements InstantAbility {
+final class Deflect extends WizardAbility implements InstantAbility {
 
-    private Float percent = 0.35f;
+    private static final float BASE_PERCENT = 0.35f;
     private static final Float BONUS_PERCENT_PER_LEVEL = 0.02f;
     private static final Float MAX_PERCENT = 0.7f;
+    private static final float RM_ROGUE = 1.2f;
+    private static final float RM_KNIGHT = 1.4f;
+    private static final float RM_PYROMANCER = 1.3f;
+    private static final float RM_WIZARD = 0f;
     private final Hero owner;
+    private Float percent = BASE_PERCENT;
 
-    Deflect(Hero owner) { //adjust for execute
+    Deflect(final Hero owner) { //adjust for execute
         super();
         this.owner = owner;
-        raceModifier = new RaceModifier(1.2f,1.4f, 1.3f, 0f);
+        raceModifier = new RaceModifier(RM_ROGUE, RM_KNIGHT,
+                RM_PYROMANCER, RM_WIZARD);
     }
 
     @Override
-    public void applyTo(Hero hero, Character land) {
+    public void applyTo(final Hero hero, final Character land) {
         if (hero.race != 'W') {
             int damage;
             PuppetHero puppet = new PuppetHero(owner.getHp(),

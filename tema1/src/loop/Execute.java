@@ -2,17 +2,24 @@ package loop;
 
 import java.lang.Math;
 
-public final class Execute extends KnightAbility implements InstantAbility{
+final class Execute extends KnightAbility implements InstantAbility{
 
-    private Float hpLimit = .2f;
-    private int damage = 200;
+    private static final float BASE_HP_LIMIT = 0.2f;
+    private static final int BASE_DAMAGE = 200;
     private static final int BONUS_DAMAGE_PER_LEVEL = 30;
-    private static final Float BONUS_HP_LIMIT_PER_LEVEL = 0.01f;
-    private static final Float MAX_HP_LIMIT = 0.4f;
+    private static final float BONUS_HP_LIMIT_PER_LEVEL = 0.01f;
+    private static final float MAX_HP_LIMIT = 0.4f;
+    private static final float RM_ROGUE = 1.15f;
+    private static final float RM_KNIGHT = 1f;
+    private static final float RM_PYROMANCER = 1.1f;
+    private static final float RM_WIZARD = 0.8f;
+    private Float hpLimit = BASE_HP_LIMIT;
+    private int damage = BASE_DAMAGE;
 
     Execute() {
         super();
-        raceModifier = new RaceModifier(1.15f, 1f, 1.1f, 0.8f);
+        raceModifier = new RaceModifier(RM_ROGUE, RM_KNIGHT,
+                RM_PYROMANCER, RM_WIZARD);
     }
 
     @Override
@@ -39,7 +46,7 @@ public final class Execute extends KnightAbility implements InstantAbility{
     }
 
     @Override
-    public void simulateOn(Hero hero, Character land) {
+    public void simulateOn(final Hero hero, final Character land) {
         if (usedThisRound) {
             hero.reciveDamage(damageDealtThisRound);
         } else {

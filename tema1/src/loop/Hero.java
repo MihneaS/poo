@@ -2,8 +2,6 @@ package loop;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.AbstractSet;
-import java.util.HashSet;
 
 public class Hero {
 
@@ -16,6 +14,7 @@ public class Hero {
     private final static int W_PER_LEVEL_HP = 30;
     private final static int R_BASE_HP = 600;
     private final static int R_PER_LEVEL_HP = 40;
+    private final static int BASE_XP_THRESHOLD = 250;
     final static char NA_RACE = 'N';
 
     protected Character race;
@@ -24,18 +23,19 @@ public class Hero {
     private int hpPerLevel;
     private int level = 0;
     private int xp = 0;
-    private int xpThreshold = 250;
+    private int xpThreshold = BASE_XP_THRESHOLD;
     private Character land;
     private boolean alive = true;
     private List<InstantAbility> abilities =
             new ArrayList<InstantAbility>(2);
     private OverTimeEffect overTimeEffect = new SentinelEffect();
     private boolean stunned = false;
+    private boolean toBeUnStunned = false;
     private int row;
     private int col;
     private boolean onCoolDown = false;
 
-    public Hero(Character race, int row, int col) {
+    public Hero(final Character race, final int row, final int col) {
         this.race = race;
         this.row = row;
         this.col = col;
@@ -72,7 +72,7 @@ public class Hero {
     }
 
 
-    void reciveDamage(int damage) {
+    void reciveDamage(final int damage) {
         if (hp <= damage) {
             hp = 0;
             alive = false;
@@ -107,7 +107,7 @@ public class Hero {
     }
 
     void unStun() {
-        stunned = false;
+        toBeUnStunned = true;
     }
 
     void setLand(final Character land) {
@@ -122,7 +122,7 @@ public class Hero {
         overTimeEffect.applyTo(this);
     }
 
-    public void applyAbilitiesTo(Hero other, Character land) {
+    public void applyAbilitiesTo(final Hero other, final Character land) {
         if (!isOnCoolDown()) {
             onCoolDown = true;
             if (!other.isAlive()) {
@@ -137,7 +137,7 @@ public class Hero {
         }
     }
 
-    public void winXPAndLevelUpFrom(Hero killed) {
+    private void winXPAndLevelUpFrom(final Hero killed) {
         if(this.isAlive()) {
             winXp(killed);
             while (canLevelUp()) {
@@ -146,13 +146,13 @@ public class Hero {
         }
     }
 
-    public void simulateDamageOn(Hero hero, Character land) {
+    void simulateDamageOn(final Hero hero, final Character land) {
         abilities.get(0).simulateOn(hero, land);
         abilities.get(1).simulateOn(hero, land);
     }
 
     private boolean canLevelUp() {
-        return xp > xpThreshold;
+        return xp >= xpThreshold;
     }
 
     private int getLevel() {
@@ -179,7 +179,7 @@ public class Hero {
         return race;
     }
 
-    void moveTo(Character direction) {
+    void moveTo(final Character direction) {
         switch (direction) {
             case 'U': row--; break;
             case 'D': row++; break;
@@ -191,6 +191,11 @@ public class Hero {
     public void prepareForNextRound() {
         onCoolDown = false;
         abilities.get(0).refresh();
+        abilities.get(1).refresh();
+        if (toBeUnStunned) {
+            toBeUnStunned = false;
+            stunned = false;
+        }
     }
 
     int getCol() {

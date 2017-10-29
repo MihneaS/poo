@@ -1,8 +1,8 @@
 package loop;
 
-public final class SlamOverTime extends Ability implements OverTimeEffect {
+final class SlamOverTime extends Ability implements OverTimeEffect {
 
-    SlamOverTime(Hero hero) {
+    SlamOverTime(final Hero hero) {
         hero.stun();
         turns = 1;
     }

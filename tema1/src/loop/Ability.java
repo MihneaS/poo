@@ -3,13 +3,13 @@ package loop;
 import java.util.HashMap;
 import java.util.Map;
 
-public abstract class Ability implements BasicAbility {
+abstract class Ability implements BasicAbility {
 
     class RaceModifier { // TODO ar trebui Race modiifer doar sa extinda clasa map?
         private final Map<Character, Float> map = new HashMap<Character, Float>();
 
-        RaceModifier(Float rogue, Float knight,
-                     Float pyromancer, Float wizard) {
+        RaceModifier(final Float rogue, final Float knight,
+                     final Float pyromancer, final Float wizard) {
             map.put('R', rogue);
             map.put('K', knight);
             map.put('P', pyromancer);
@@ -17,7 +17,7 @@ public abstract class Ability implements BasicAbility {
             map.put('N', 1f);
         }
 
-        Float get(Character key) {
+        Float get(final Character key) {
             return map.get(key);
         }
     }
@@ -26,12 +26,12 @@ public abstract class Ability implements BasicAbility {
         private final Character preferredLand;
         private final Float modifer;
 
-        LandModifier(Character preferredLand, Float modifer) {
-            this.preferredLand = preferredLand;
-            this.modifer = modifer;
+        LandModifier(final Character preferredLandP, final Float modiferP) {
+            this.preferredLand = preferredLandP;
+            this.modifer = modiferP;
         }
 
-        Float get (Character land) {
+        Float get(final Character land) {
             if (land == preferredLand) {
                 return modifer;
             } else {
@@ -39,18 +39,18 @@ public abstract class Ability implements BasicAbility {
             }
         }
 
-        public Character getPreferredLand() {
+        Character getPreferredLand() {
             return preferredLand;
         }
     }
 
     protected RaceModifier raceModifier;
     protected LandModifier landModifier;
-    protected int damageDealtThisRound = 0;
-    protected boolean usedThisRound = false;
-    protected int turns;
+    int turns;
+    int damageDealtThisRound = 0;
+    boolean usedThisRound = false;
 
-    public void refresh() {
+    public final void refresh() {
         damageDealtThisRound = 0;
         usedThisRound = false;
     }

@@ -1,5 +1,5 @@
 package loop;
 
-public interface OverTimeEffect extends BasicAbility {
-    void applyTo(Hero hero);
+interface OverTimeEffect extends BasicAbility {
+    void applyTo(final Hero hero);
 }

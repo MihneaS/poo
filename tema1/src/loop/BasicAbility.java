@@ -1,6 +1,6 @@
 package loop;
 
-public interface BasicAbility {
+interface BasicAbility {
     void levelUp();
     void refresh();
 }

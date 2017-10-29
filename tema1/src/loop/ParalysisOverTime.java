@@ -6,17 +6,17 @@ public final class ParalysisOverTime extends Paralysis
     private static final int TURN_MULTIPLIER = 2;
     private final Character initialLand;
 
-    ParalysisOverTime(Hero hero, Character land) {
+    ParalysisOverTime(final Hero hero, final Character land) {
         super();
         turns = BASE_TURNS;
         if (land == landModifier.getPreferredLand()) {
-            turns *= 2;
+            turns *= TURN_MULTIPLIER;
         }
         initialLand = land;
         hero.stun();
     }
 
-    public void applyTo(Hero hero) {
+    public void applyTo(final Hero hero) {
         double multipliedDamage = damage;
         multipliedDamage *= landModifier.get(initialLand) *
                 raceModifier.get(hero.race);

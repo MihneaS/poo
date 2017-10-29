@@ -1,8 +1,6 @@
 package loop;
 
-import java.util.AbstractSet;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 
 public class Terrain {
@@ -16,20 +14,18 @@ public class Terrain {
             this.type = type;
         }
 
-        public char getType() {
+        char getType() {
             return type;
         }
 
-        public Hero otherHeroThen(Hero thisHero) {
+        Hero otherHeroThen(Hero thisHero) {
             if(heroes.size() > 2) {
                 for (Hero hero: heroes) {
                     if(!hero.isAlive()) {
                         deadHeroes.add(hero);
                     }
                 }
-                for (Hero hero: deadHeroes) {
-                    heroes.remove(hero);
-                }
+                heroes.removeAll(deadHeroes);
                 deadHeroes.clear();
             }
             if (heroes.size() == 2) {
@@ -49,11 +45,11 @@ public class Terrain {
             }
         }
 
-        public void addHero(Hero hero) {
+        void addHero(Hero hero) {
             heroes.add(hero);
         }
 
-        public void removeHero(Hero hero) {
+        void removeHero(Hero hero) {
             heroes.remove(hero);
         }
     }
@@ -104,7 +100,7 @@ public class Terrain {
             for (Cell d : c) {
                 result.append(d.toString());
             }
-            result.append(String.format("\n"));
+            result.append("\n");
 
         }
         return result.toString();

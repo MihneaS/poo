@@ -1,12 +1,18 @@
 package loop;
 
-public final class Slam extends KnightAbility implements InstantAbility {
+final class Slam extends KnightAbility implements InstantAbility {
 
-    private int damage = 100;
+    private static final int BASE_DAMAGE = 100;
     private static final int BONUS_DAMAGE_PER_LEVEL = 40;
+    private static final float RM_ROGUE = 0.8f;
+    private static final float RM_KNIGHT = 1.2f;
+    private static final float RM_PYROMANCER = 0.9f;
+    private static final float RM_WIZARD = 1.05f;
+    private int damage = BASE_DAMAGE;
 
     Slam() {
-        raceModifier = new RaceModifier(0.8f, 1.2f,  0.9f, 1.05f);
+        raceModifier = new RaceModifier(RM_ROGUE, RM_KNIGHT,
+                RM_PYROMANCER, RM_WIZARD);
     }
 
     public void applyTo(final Hero hero, final Character land) {
