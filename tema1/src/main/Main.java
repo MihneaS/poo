@@ -22,7 +22,7 @@ public class Main {
 
         if (args.length == 0) {
             args = new String[2];
-            String test = "fightKWD";
+            String test = "fightKRW";
             args[0] = "/home/mihnea/facultate/poo/tema1/src/checker/resources/in/" + test + ".in";
             args[1] = "/home/mihnea/facultate/poo/tema1/src/checker/resources/out/" + test + ".out";
         }

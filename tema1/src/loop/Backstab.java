@@ -15,7 +15,7 @@ public final class Backstab extends RogueAbility implements InstantAbility {
 
     @Override
     public void applyTo(Hero hero, Character land) {
-        Double intermediarDamage = calculateIntermediarDamage(hero, land);
+        Float intermediarDamage = calculateIntermediarDamage(hero, land);
         int damageToDeal = modifyDamage(intermediarDamage,
                 hero.getRace(), land);
         hero.reciveDamage(damageToDeal);
@@ -24,13 +24,13 @@ public final class Backstab extends RogueAbility implements InstantAbility {
         counter = ++counter % 3;
     }
 
-    private int modifyDamage(Double damage, Character race, Character land) {
+    private int modifyDamage(Float damage, Character race, Character land) {
         return (int) Math.round(damage * landModifier.get(land) *
                 raceModifier.get(race));
     }
 
-    private Double calculateIntermediarDamage(Hero hero, Character land) {
-        double multipliedDamage = damage;
+    private Float calculateIntermediarDamage(Hero hero, Character land) {
+        float multipliedDamage = damage;
         if (counter == 0 && land == landModifier.getPreferredLand()) {
             multipliedDamage *= DAMAGE_MULTIPLIER;
         }
