@@ -5,5 +5,8 @@ public class SentinelInstantAbility implements InstantAbility {
     public void levelUp() {}
 
     @Override
+    public void refresh() {}
+
+    @Override
     public void applyTo(Hero hero, Character land) {}
 }

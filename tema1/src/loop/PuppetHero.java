@@ -2,17 +2,20 @@ package loop;
 
 public final class PuppetHero extends Hero {
 
-    PuppetHero() {
-        hp = 0;
+    int receivedDamage = 0;
+
+    PuppetHero(int hp, int maxHp) {
+        this.hp = hp;
+        this.maxHp = maxHp;
         race = 'N';
     }
 
     @Override
     void reciveDamage(int damage) {
-        hp += damage;
+        receivedDamage += damage;
     }
 
     public int getReceivedDamage() {
-        return hp;
+        return receivedDamage;
     }
 }

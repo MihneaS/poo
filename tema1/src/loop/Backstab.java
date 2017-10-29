@@ -1,5 +1,7 @@
 package loop;
 
+import static loop.Hero.NA_RACE;
+
 public final class Backstab extends RogueAbility implements InstantAbility {
 
     private int damage = 200;
@@ -13,20 +15,37 @@ public final class Backstab extends RogueAbility implements InstantAbility {
 
     @Override
     public void applyTo(Hero hero, Character land) {
-        simulateOn(hero, land);
+        Double intermediarDamage = calculateIntermediarDamage(hero, land);
+        int damageToDeal = modifyDamage(intermediarDamage,
+                hero.getRace(), land);
+        hero.reciveDamage(damageToDeal);
+        damageDealtThisRound = modifyDamage(intermediarDamage, NA_RACE, land);
+        usedThisRound = true;
         counter = ++counter % 3;
     }
 
-    @Override
-    public void simulateOn(Hero hero, Character land){
+    private int modifyDamage(Double damage, Character race, Character land) {
+        return (int) Math.round(damage * landModifier.get(land) *
+                raceModifier.get(race));
+    }
+
+    private Double calculateIntermediarDamage(Hero hero, Character land) {
         double multipliedDamage = damage;
         if (counter == 0 && land == landModifier.getPreferredLand()) {
             multipliedDamage *= DAMAGE_MULTIPLIER;
         }
+        return multipliedDamage;
+    }
 
-        multipliedDamage *= landModifier.get(land) *
-                raceModifier.get(hero.race);
-        hero.reciveDamage((int) Math.round(multipliedDamage));
+    @Override
+    public void simulateOn(Hero hero, Character land){
+        if (usedThisRound) {
+            hero.reciveDamage(damageDealtThisRound);
+        } else {
+            hero.reciveDamage(modifyDamage(
+                    calculateIntermediarDamage(hero, land),
+                    hero.getRace(), land));
+        }
     }
 
     @Override

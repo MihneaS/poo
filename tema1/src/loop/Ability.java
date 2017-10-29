@@ -3,7 +3,7 @@ package loop;
 import java.util.HashMap;
 import java.util.Map;
 
-public abstract class Ability {
+public abstract class Ability implements BasicAbility {
 
     class RaceModifier { // TODO ar trebui Race modiifer doar sa extinda clasa map?
         private final Map<Character, Float> map = new HashMap<Character, Float>();
@@ -46,6 +46,13 @@ public abstract class Ability {
 
     protected RaceModifier raceModifier;
     protected LandModifier landModifier;
+    protected int damageDealtThisRound = 0;
+    protected boolean usedThisRound = false;
     protected int turns;
+
+    public void refresh() {
+        damageDealtThisRound = 0;
+        usedThisRound = false;
+    }
 
 }

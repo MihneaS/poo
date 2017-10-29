@@ -16,6 +16,7 @@ public class Hero {
     private final static int W_PER_LEVEL_HP = 30;
     private final static int R_BASE_HP = 600;
     private final static int R_PER_LEVEL_HP = 40;
+    final static char NA_RACE = 'N';
 
     protected Character race;
     int maxHp;
@@ -55,8 +56,7 @@ public class Hero {
                 maxHp = W_BASE_HP;
                 hpPerLevel = W_PER_LEVEL_HP;
                 abilities.add(new Drain());
-                hp = maxHp;
-                abilities.add(new Deflect());
+                abilities.add(new Deflect(this));
                 break;
             case 'R':
                 maxHp = R_BASE_HP;
@@ -188,8 +188,9 @@ public class Hero {
         }
     }
 
-    public void wearOffCoolDown() {
+    public void prepareForNextRound() {
         onCoolDown = false;
+        abilities.get(0).refresh();
     }
 
     int getCol() {

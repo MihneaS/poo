@@ -1,0 +1,1 @@
+for i in "loop" "main";do for j in $(ls $i | grep .java);do echo $(pwd)/$i/$j ~/facultate/poo/tema1/$i/$j;done; done

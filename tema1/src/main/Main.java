@@ -22,7 +22,7 @@ public class Main {
 
         if (args.length == 0) {
             args = new String[2];
-            String test = "fightRWW";
+            String test = "fightKWD";
             args[0] = "/home/mihnea/facultate/poo/tema1/src/checker/resources/in/" + test + ".in";
             args[1] = "/home/mihnea/facultate/poo/tema1/src/checker/resources/out/" + test + ".out";
         }
@@ -56,7 +56,7 @@ public class Main {
             for (int i = 0; i < r; ++i) {
                 //  Apply over time effect to heroes
                 for (Hero hero : heroes) {
-                    hero.wearOffCoolDown();
+                    hero.prepareForNextRound();
                     Hero attacker = terrain.otherHeroNextTo(hero);
                     if (attacker == null) {
                         attacker = new SentinelHero();
@@ -95,9 +95,9 @@ public class Main {
             //  Write output
             for (Hero hero: heroes) {
                 output.writeWord(hero.toString() + "\n");
-                System.out.print("\n" + hero.toString());
+//                System.out.print(hero.toString() + "\t");
             }
-            System.out.println();
+//            System.out.println();
 
             input.close();
             output.close();
