@@ -26,27 +26,29 @@ public class Hero {
     private int level = 0;
     private int xp = 0;
     private int xpThreshold = BASE_XP_THRESHOLD;
-    private Character land;
     private boolean alive = true;
-    private List<InstantAbility> abilities =
-            new ArrayList<InstantAbility>(2);
-    private OverTimeEffect overTimeEffect = new SentinelEffect();
+    private List<InstantAbility> abilities = new ArrayList<>(2);
+    public OverTimeEffect overTimeEffect = new SentinelEffect();
     private boolean stunned = false;
     private boolean toBeUnStunned = false;
+    private boolean onCoolDown = false;
     private int row;
     private int col;
-    private boolean onCoolDown = false;
 
-    public Hero(final Character raceP, final int rowP, final int colP) {
-        this.race = raceP;
-        this.row = rowP;
-        this.col = colP;
+
+    public static Hero zaHero;
+//    public int nrCrt;
+
+    public Hero(final Character race, final int row, final int col) {
+        this.race = race;
+        this.row = row;
+        this.col = col;
         switch (race) {
             case 'P':
                 maxHp = P_BASE_HP;
                 hpPerLevel = P_PER_LEVEL_HP;
                 abilities.add(new Fireblast());
-                abilities.add(new Ignite());
+                abilities.add(new Ignite(this));
                 break;
             case 'K':
                 maxHp = K_BASE_HP;
@@ -64,7 +66,7 @@ public class Hero {
                 maxHp = R_BASE_HP;
                 hpPerLevel = R_PER_LEVEL_HP;
                 abilities.add(new Backstab());
-                abilities.add(new Paralysis());
+                abilities.add(new Paralysis(this));
                 break;
             default: break;
         }
@@ -75,7 +77,17 @@ public class Hero {
     }
 
 
-    void reciveDamage(final int damage) {
+//    public String getPos() {
+//        return row + " " + col;
+//    }
+
+    /**
+     * Scade damage din hp..
+     */
+    public void receiveDamage(final int damage) {
+        if(this == zaHero) {
+            System.out.println(damage);
+        }
         if (hp <= damage) {
             hp = 0;
             alive = false;
@@ -84,11 +96,11 @@ public class Hero {
         }
     }
 
-    public boolean isAlive() {
+    public final boolean isAlive() {
         return alive;
     }
 
-    public void levelUp() {
+    public final void levelUp() {
         maxHp += hpPerLevel;
         hp = maxHp;
         abilities.get(0).levelUp();
@@ -97,45 +109,56 @@ public class Hero {
         ++level;
     }
 
-    void setOverTimeEffect(final OverTimeEffect overTimeEffectP) {
-        this.overTimeEffect = overTimeEffectP;
+    final void setOverTimeEffect(final OverTimeEffect overTimeEffect) {
+        this.overTimeEffect = overTimeEffect;
     }
 
-    void finishOvertimeEffect() {
+    final void finishOvertimeEffect() {
         overTimeEffect = new SentinelEffect();
     }
 
-    void stun() {
+    final void stun() {
         stunned = true;
     }
 
-    void unStun() {
+    final void unStun() {
         toBeUnStunned = true;
     }
 
-    void setLand(final Character landP) {
-        this.land = landP;
-    }
-
-    public boolean isStunned() {
+    public final boolean isStunned() {
         return stunned;
     }
 
-    public void applyOverTimeEffect() {
+    public final void applyOverTimeEffect() {
         overTimeEffect.applyTo(this);
     }
 
-    public void applyAbilitiesTo(final Hero other, final Character landP) {
+    public final void applyAbilitiesTo(final Hero other, final Character land) {
         if (!isOnCoolDown()) {
             onCoolDown = true;
             if (!other.isAlive()) {
                 return;
             }
-            abilities.get(0).applyTo(other, landP);
-            abilities.get(1).applyTo(other, landP);
+//            if (zaHero == this && !(other instanceof PuppetHero)) {
+//                System.out.print("Our " + zaHero+ " attacked " + other + "->");
+//            } else if (zaHero == other) {
+//                System.out.print(other + " attacked our "+zaHero + "->" );
+//
+//            }
+            abilities.get(0).applyTo(other, land);
+            abilities.get(1).applyTo(other, land);
+//            if (zaHero == this && !(other instanceof PuppetHero)) {
+//                System.out.println(other);
+//            } else if (zaHero == other) {
+//                System.out.println(zaHero);
+//
+//            }
             if (!other.isAlive() && other.getRace() != 'N') {
-                other.applyAbilitiesTo(this, landP);
+                other.applyAbilitiesTo(this, land);
                 winXPAndLevelUpFrom(other);
+//                if (this == zaHero) {
+//                    System.out.println("OUR HERO LEVELED UP" + zaHero);
+//                }
             }
         }
     }
@@ -149,16 +172,16 @@ public class Hero {
         }
     }
 
-    void simulateDamageOn(final Hero hero, final Character landP) {
-        abilities.get(0).simulateOn(hero, landP);
-        abilities.get(1).simulateOn(hero, landP);
+    final void applyAbilitiesTo(final PuppetHero hero, final Character land) {
+        abilities.get(0).applyTo(hero, land);
+        abilities.get(1).applyTo(hero, land);
     }
 
     private boolean canLevelUp() {
         return xp >= xpThreshold;
     }
 
-    private int getLevel() {
+    final int getLevel() {
         return level;
     }
 
@@ -167,23 +190,19 @@ public class Hero {
                 - (level - other.getLevel()) * XP_BONUS_PER_LEVEL);
     }
 
-    int getHp() {
+    final int getHp() {
         return hp;
     }
 
-    int getMaxHp() {
+    final int getMaxHp() {
         return maxHp;
     }
 
-    public Character getLand() {
-        return land;
-    }
-
-    public Character getRace() {
+    public final Character getRace() {
         return race;
     }
 
-    void moveTo(final Character direction) {
+    final void moveTo(final Character direction) {
         switch (direction) {
             case 'U': row--; break;
             case 'D': row++; break;
@@ -193,7 +212,7 @@ public class Hero {
         }
     }
 
-    public void prepareForNextRound() {
+    public final void prepareForNextRound() {
         onCoolDown = false;
         abilities.get(0).refresh();
         abilities.get(1).refresh();
@@ -203,11 +222,11 @@ public class Hero {
         }
     }
 
-    int getCol() {
+    final int getCol() {
         return col;
     }
 
-    int getRow() {
+    final int getRow() {
         return row;
     }
 
@@ -216,7 +235,7 @@ public class Hero {
     }
 
     @Override
-    public String toString() {
+    public final String toString() {
         if (isAlive()) {
             return race + " " + level + " " + xp + " " + hp + " "
                     + row + " " + col;

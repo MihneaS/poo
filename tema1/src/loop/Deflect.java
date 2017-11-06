@@ -12,9 +12,9 @@ final class Deflect extends WizardAbility implements InstantAbility {
     private final Hero owner;
     private Float percent = BASE_PERCENT;
 
-    Deflect(final Hero ownerP) { //adjust for execute
+    Deflect(final Hero owner) {
         super();
-        this.owner = ownerP;
+        this.owner = owner;
         raceModifier = new RaceModifier(RM_ROGUE, RM_KNIGHT,
                 RM_PYROMANCER, RM_WIZARD);
     }
@@ -25,10 +25,10 @@ final class Deflect extends WizardAbility implements InstantAbility {
             int damage;
             PuppetHero puppet = new PuppetHero(owner.getHp(),
                     owner.getMaxHp());
-            hero.simulateDamageOn(puppet, land);
+            hero.applyAbilitiesTo(puppet, land);
             damage = (int) Math.round(puppet.getReceivedDamage() * percent
                     * raceModifier.get(hero.race) * landModifier.get(land));
-            hero.reciveDamage(damage);
+            hero.receiveDamage(damage);
         }
     }
 

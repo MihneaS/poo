@@ -3,10 +3,11 @@ package loop;
 import java.util.HashMap;
 import java.util.Map;
 
-abstract class Ability implements BasicAbility {
+import static loop.Hero.NA_RACE;
 
-    class RaceModifier { // TODO ar trebui Race modiifer doar sa extinda clasa map?
-        private final Map<Character, Float> map = new HashMap<Character, Float>();
+abstract class Ability implements BasicAbility {
+    protected class RaceModifier {
+        private final Map<Character, Float> map = new HashMap<>();
 
         RaceModifier(final Float rogue, final Float knight,
                      final Float pyromancer, final Float wizard) {
@@ -14,7 +15,7 @@ abstract class Ability implements BasicAbility {
             map.put('K', knight);
             map.put('P', pyromancer);
             map.put('W', wizard);
-            map.put('N', 1f);
+            map.put(NA_RACE, 1f);
         }
 
         Float get(final Character key) {
@@ -22,13 +23,13 @@ abstract class Ability implements BasicAbility {
         }
     }
 
-    class LandModifier {
+    protected class LandModifier {
         private final Character preferredLand;
         private final Float modifier;
 
-        LandModifier(final Character preferredLandP, final Float modifierP) {
-            this.preferredLand = preferredLandP;
-            this.modifier = modifierP;
+        LandModifier(final Character preferredLand, final Float modifier) {
+            this.preferredLand = preferredLand;
+            this.modifier = modifier;
         }
 
         Float get(final Character land) {

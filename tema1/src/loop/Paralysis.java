@@ -1,19 +1,19 @@
 package loop;
 
-class Paralysis extends RogueAbility implements InstantAbility {
+class Paralysis extends BasicParalysis implements InstantAbility {
 
     private static final int BASE_DAMAGE = 40;
     private static final int BONUS_DAMAGE_PER_LEVEL = 10;
-    private static final float RM_ROGUE = 0.9f;
-    private static final float RM_KNIGHT = 0.8f;
-    private static final float RM_PYROMANCER = 1.2f;
-    private static final float RM_WIZARD = 1.25f;
     protected int damage = BASE_DAMAGE;
+    private final Hero owner;
 
-    Paralysis() {
+    Paralysis(final Hero owner) {
         super();
-        raceModifier = new RaceModifier(RM_ROGUE, RM_KNIGHT,
-                RM_PYROMANCER, RM_WIZARD);
+        this.owner = owner;
+    }
+
+    private int getLevel() {
+        return owner.getLevel();
     }
 
     @Override
@@ -21,8 +21,9 @@ class Paralysis extends RogueAbility implements InstantAbility {
         double multipliedDamage = damage;
         multipliedDamage *= landModifier.get(land)
                 * raceModifier.get(hero.race);
-        hero.reciveDamage((int) Math.round(multipliedDamage));
-        hero.setOverTimeEffect(new ParalysisOverTime(hero, land));
+        hero.receiveDamage((int) Math.round(multipliedDamage));
+        hero.setOverTimeEffect(
+                new ParalysisOverTime(hero, land, getLevel()));
     }
 
     @Override

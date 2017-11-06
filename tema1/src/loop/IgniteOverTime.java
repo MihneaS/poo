@@ -1,22 +1,24 @@
 package loop;
 
-final class IgniteOverTime extends Ignite implements OverTimeEffect {
+final class IgniteOverTime extends BasicIgnite implements OverTimeEffect {
 
     private static final int BASE_DAMAGE = 50;
     private static final int BONUS_DAMAGE_PER_LEVEL = 30;
+    private static final int INITIAL_TURNS = 2;
     private final Character initialLand;
     private int damage = BASE_DAMAGE;
 
-    IgniteOverTime(final Character land) {
+    IgniteOverTime(final Character land, final int level) {
         super();
         initialLand = land;
-        turns = 2;
+        turns = INITIAL_TURNS;
+        damage += BONUS_DAMAGE_PER_LEVEL * level;
     }
 
     public void applyTo(final Hero hero) {
-        int modifiedDamage = (int) Math.round(damage
+        int modifiedDamage = Math.round(damage
                 * raceModifier.get(hero.race) * landModifier.get(initialLand));
-        hero.reciveDamage(modifiedDamage);
+        hero.receiveDamage(modifiedDamage);
         if (--turns == 0) {
             hero.finishOvertimeEffect();
         }

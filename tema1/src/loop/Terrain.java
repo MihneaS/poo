@@ -10,8 +10,8 @@ public final class Terrain {
         private List<Hero> heroes = new ArrayList<Hero>();
         private List<Hero> deadHeroes = new ArrayList<Hero>();
 
-        Cell(final char typeP) {
-            this.type = typeP;
+        Cell(final char type) {
+            this.type = type;
         }
 
         char getType() {

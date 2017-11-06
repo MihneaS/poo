@@ -20,7 +20,7 @@ final class Fireblast extends PyromancerAbility implements InstantAbility {
     public void applyTo(final Hero hero, final Character land) {
         int modifiedDamage = (int) Math.round(damage
                 * raceModifier.get(hero.race) * landModifier.get(land));
-        hero.reciveDamage(modifiedDamage);
+        hero.receiveDamage(modifiedDamage);
     }
 
     @Override

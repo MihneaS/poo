@@ -32,23 +32,23 @@ final class Execute extends KnightAbility implements InstantAbility {
         int damageForSimulation;
         if ((double) hero.hp < hpLimit * hero.maxHp) {
             damageForSimulation = hero.hp;
-            hero.reciveDamage(damageForSimulation);
+            hero.receiveDamage(damageForSimulation);
         } else {
             modifiedDamage = (int) Math.round(damage
                     * raceModifier.get(hero.race) * landModifier.get(land));
             damageForSimulation = Math.round(damage * landModifier.get(land));
-            hero.reciveDamage(modifiedDamage);
+            hero.receiveDamage(modifiedDamage);
         }
         damageDealtThisRound = damageForSimulation;
         usedThisRound = true;
     }
 
     @Override
-    public void simulateOn(final Hero hero, final Character land) {
+    public void applyTo(final PuppetHero hero, final Character land) {
         if (usedThisRound) {
-            hero.reciveDamage(damageDealtThisRound);
+            hero.receiveDamage(damageDealtThisRound);
         } else {
-            applyTo(hero, land);
+            applyTo((Hero) hero, land);
         }
     }
 

@@ -1,0 +1,6 @@
+
+for i in $(ls loop); do
+    if cat loop/$i | grep '//'; then
+        vim loop/$i;
+    fi;
+done

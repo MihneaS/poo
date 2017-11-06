@@ -1,0 +1,60 @@
+
+Am implementat doulbe dispatch. detalii la finalul documentului
+
+
+            Modelarea Problemei
+            *******************
+
+    main
+
+    Aceasta pe masura ce citeste memoreaza datele initiale, initializeaza
+obiectele si EXECUTA RUNDELE, dupa care scrie rezultatul. Are la dispozitie 2
+clase publice, HERO si TERRAIN. Clasa HERO ofera toate mecanismele necesare
+interactionarii intre eroi, iar clasa TERRAIN ofera datele din preajma unui
+erou (tipul terenului, alt erou)
+
+    RUNDELE
+    Toate rundele se executa dupa cum urmeaza:
+
+    Se aplica Over Time Effect (DoT sau stun)
+    #!#Fiecarui erou i se apeleaza o functie de inceput de runda (sa ii zicem
+prep())
+    Se citesc miscarile si se incearca executarea lor
+    Fiecare erou aplica vecinului sau abilitatiile, si daca vecinul e omorat,
+acesta din urma e scos din terrain (astfel eroul mort nu va mai avea vecini de
+atacat)
+
+    class Hero
+
+    proprietati si mecanisme: (poti sari la @notabil) eroul are hp, xp, level,,
+race coordonate 2D, poate fi alive, stunned, @notabil are 2 abilitati pe care
+le poate aplica altui erou, o singura data pe tura datatorita mecanismului de
+cooldown (un boolean activat la aplicarea abilitatiilor si dezactivat la
+inceput de runda prin prep()), in caz ca abilitatiile omoara inamicul, omoratul
+va aplica un last blow (isi aplica si el abilitatiile) iar apoi, daca este inca
+viu se castiga xp si se face level up. De asemenea, abilitatiile se pot simula.
+(folositor pentru Deflect). diferentierea rasei se face prin atributul race,
+iar base_hp si hp_per_level se initializeaza in constructor in functie de race
+
+    Abilitati
+
+    Fiecare Abilitate e implementata cu o clasa finala, sau doua daca are si
+efect prelungit.
+
+    Exista 3 interfete pentru Abilitati:
+    BasicAbility : contine functii package-protected comune tuturor
+abilitatilor
+    InstantAbility : pentru abilitati cu efect instant (se aplica in timuplui
+luptei)
+    OverTimeEffect : pentru abilitati cu efect prelungit(se aplica in rundele
+ulterioare luptei)
+
+    Clasa parinte a tuturor abilitatiilor este clasa abstracta, ABILITY. Pentru
+a stoca logica pentru modificarea de teren si de rasa, aceasta foloseste 2
+instante a unor clase interne, LandModifier si RaceModifier. Deoarece
+LandModifier-ul e specific fiecarei rase, pentru fiecare rasa exista clasa
+abstracta <RACE>Ability a carui singur scop e sa initializeze in constructor a
+LandModifier. Astfel orice clasa <Abilitate> mosteneste clasa <Race>Ability
+corespunzatoare. Exceptie fac abilitatiile cu efect prelungit. in acest caz
+exista o clasa intermediara Basic<Abilitate>, mostenita de clasele <Abilitate>
+si <Abilitate>OverTime, care implementeaza partile comune

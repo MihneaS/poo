@@ -25,7 +25,7 @@ final class Drain extends WizardAbility implements InstantAbility {
                         hero.getHp());
         int modifiedDamage = (int) Math.round(damage
                 * raceModifier.get(hero.race) * landModifier.get(land));
-        hero.reciveDamage(modifiedDamage);
+        hero.receiveDamage(modifiedDamage);
     }
 
     @Override

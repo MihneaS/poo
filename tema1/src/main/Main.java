@@ -23,51 +23,56 @@ public final class Main {
         IReader input;
         IWriter output;
         Terrain terrain;
-        List<Hero> heroes = new ArrayList<Hero>();
+        List<Hero> heroes = new ArrayList<>();
 
         if (args.length == 0) {
             args = new String[2];
-            String test = "4x4";
+            String test = "dense";
             args[0] = "/home/mihnea/facultate/poo/tema1/src/checker/resources/in/" + test + ".in";
             args[1] = "/home/mihnea/facultate/poo/tema1/src/checker/resources/out/" + test + ".out";
         }
 
         try {
-            // Initializize IO objects
             input = new FileReader(args[0]);
             output = new FileWriter(args[1]);
 
-            // Read and create terrain
             n = input.nextInt();
             m = input.nextInt();
-            inputMap = new ArrayList<String>(n);
+            inputMap = new ArrayList<>(n);
             for (int i = 0; i < n; ++i) {
                 inputMap.add(input.nextWord());
             }
             terrain = new Terrain(inputMap, n, m);
 
-            //  Read and initializize heros
             p = input.nextInt();
             for (int i = 0; i < p; ++i) {
                 heroes.add(new Hero(input.nextWord().charAt(0),
                         input.nextInt(),
                         input.nextInt()));
                 terrain.addHero(heroes.get(i));
+//                heroes.get(i).nrCrt = i;
             }
 
-            //  Read and execute rounds
+            Hero.zaHero = heroes.get(37);
+
             r = input.nextInt();
-            List<String> aux = new ArrayList<String>(r);
             for (int i = 0; i < r; ++i) {
-                //  Apply over time effect to heroes
+                        System.out.println("ROUND " + i + ":");
+                        System.out.println(Hero.zaHero.overTimeEffect);
                 for (Hero hero : heroes) {
                     hero.prepareForNextRound();
                     hero.applyOverTimeEffect();
                 }
 
-                // Move heroes
                 moveCommands = input.nextWord();
                 for (int j = 0; j < p; ++j) {
+//                    if (j == 43) {
+//                        if (heroes.get(j).isStunned()) {
+//                            System.out.println(heroes.get(j) + " is stunned");
+//                        } else {
+//                            System.out.println(heroes.get(j).getPos());
+//                        }
+//                    }
                     if (heroes.get(j).isAlive()
                             && !heroes.get(j).isStunned()) {
                         terrain.moveHero(heroes.get(j),
@@ -93,7 +98,6 @@ public final class Main {
                 }
             }
 
-            //  Write output
             for (Hero hero: heroes) {
                 output.writeWord(hero.toString() + "\n");
             }
