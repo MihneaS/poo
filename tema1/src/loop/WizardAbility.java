@@ -1,7 +1,12 @@
+/*
+ * POO - tema1
+ * SERBAN Mihnea
+ * 321CA
+ */
+
 package loop;
 
 abstract class WizardAbility extends Ability {
-
     static final Character PREFFERED_LAND = 'D';
     static final float MODIFIER = 1.1f;
 

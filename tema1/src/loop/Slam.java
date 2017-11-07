@@ -1,7 +1,12 @@
+/*
+ * POO - tema1
+ * SERBAN Mihnea
+ * 321CA
+ */
+
 package loop;
 
 final class Slam extends KnightAbility implements InstantAbility {
-
     private static final int BASE_DAMAGE = 100;
     private static final int BONUS_DAMAGE_PER_LEVEL = 40;
     private static final float RM_ROGUE = 0.8f;

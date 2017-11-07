@@ -1,15 +1,20 @@
+/*
+ * POO - tema1
+ * SERBAN Mihnea
+ * 321CA
+ */
+
 package loop;
 
 final class Drain extends WizardAbility implements InstantAbility {
-
     private static final float BASE_PERCENT = 0.2f;
-    private static final Float BONUS_PERCENT_PER_LEVEL = 0.05f;
+    private static final float BONUS_PERCENT_PER_LEVEL = 0.05f;
     private static final float RM_ROGUE = 0.8f;
     private static final float RM_KNIGHT = 1.2f;
     private static final float RM_PYROMANCER = 0.9f;
     private static final float RM_WIZARD = 1.05f;
     private static final float MAXIMUM_AFFECTED_HP_PERCENT = 0.3f;
-    private Float percent = BASE_PERCENT;
+    private float percent = BASE_PERCENT;
 
     Drain() {
         super();
@@ -19,7 +24,7 @@ final class Drain extends WizardAbility implements InstantAbility {
 
     @Override
     public void applyTo(final Hero hero, final Character land) {
-        Float damage = percent
+        float damage = percent
                 * Math.min(
                         MAXIMUM_AFFECTED_HP_PERCENT * hero.getMaxHp(),
                         hero.getHp());

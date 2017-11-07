@@ -1,5 +1,11 @@
+/*
+ * POO - tema1
+ * SERBAN Mihnea
+ * 321CA
+ */
+
 package loop;
 
-interface OverTimeEffect extends BasicAbility {
+interface OverTimeEffect {
     void applyTo(Hero hero);
 }

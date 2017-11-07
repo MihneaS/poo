@@ -1,10 +1,15 @@
+/*
+ * POO - tema1
+ * SERBAN Mihnea
+ * 321CA
+ */
+
 package loop;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public final class Terrain {
-
     final class Cell {
         private char type;
         private List<Hero> heroes = new ArrayList<Hero>();
@@ -77,6 +82,7 @@ public final class Terrain {
     public void removeHero(final Hero hero) {
         getCellOf(hero).removeHero(hero);
     }
+
     public void moveHero(final Hero hero, final Character direction) {
         if (!hero.isStunned() && hero.isAlive()) {
             getCellOf(hero).removeHero(hero);
@@ -91,18 +97,5 @@ public final class Terrain {
 
     public Character getLandType(final Hero hero) {
         return getCellOf(hero).getType();
-    }
-
-    @Override
-    public String toString() {
-        StringBuilder result = new StringBuilder();
-        for (Cell[] c : map) {
-            for (Cell d : c) {
-                result.append(d.toString());
-            }
-            result.append("\n");
-
-        }
-        return result.toString();
     }
 }

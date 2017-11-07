@@ -1,7 +1,12 @@
+/*
+ * POO - tema1
+ * SERBAN Mihnea
+ * 321CA
+ */
+
 package loop;
 
 final class Fireblast extends PyromancerAbility implements InstantAbility {
-
     private static final int BASE_DAMAGE = 350;
     private static final int BONUS_DAMAGE_PER_LEVEL = 50;
     private static final float RM_ROGUE = 0.8f;

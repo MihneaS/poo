@@ -1,9 +1,14 @@
+/*
+ * POO - tema1
+ * SERBAN Mihnea
+ * 321CA
+ */
+
 package loop;
 
 import static loop.Hero.NA_RACE;
 
 final class Backstab extends RogueAbility implements InstantAbility {
-
     private static final int BASE_DAMAGE = 200;
     private static final int BONUS_DAMAGE_PER_LEVEL = 20;
     private static final int LUCKY_TURN = 3;
@@ -22,7 +27,7 @@ final class Backstab extends RogueAbility implements InstantAbility {
 
     @Override
     public void applyTo(final Hero hero, final Character land) {
-        Float intermediarDamage = calculateIntermediarDamage(land);
+        float intermediarDamage = calculateIntermediaryDamage(land);
         int damageToDeal = modifyDamage(intermediarDamage,
                 hero.getRace(), land);
         hero.receiveDamage(damageToDeal);
@@ -31,26 +36,12 @@ final class Backstab extends RogueAbility implements InstantAbility {
         counter = ++counter % LUCKY_TURN;
     }
 
-    private int modifyDamage(final Float initDamage,
-                             final Character race, final Character land) {
-        return (int) Math.round(initDamage * landModifier.get(land)
-                * raceModifier.get(race));
-    }
-
-    private Float calculateIntermediarDamage(final Character land) {
-        float multipliedDamage = damage;
-        if (counter == 0 && land == landModifier.getPreferredLand()) {
-            multipliedDamage *= DAMAGE_MULTIPLIER;
-        }
-        return multipliedDamage;
-    }
-
     @Override
     public void applyTo(final PuppetHero hero, final Character land) {
         if (usedThisRound) {
             hero.receiveDamage(damageDealtThisRound);
         } else {
-            hero.receiveDamage(modifyDamage(calculateIntermediarDamage(land),
+            hero.receiveDamage(modifyDamage(calculateIntermediaryDamage(land),
                     hero.getRace(), land));
         }
     }
@@ -58,5 +49,19 @@ final class Backstab extends RogueAbility implements InstantAbility {
     @Override
     public void levelUp() {
         damage += BONUS_DAMAGE_PER_LEVEL;
+    }
+
+    private int modifyDamage(final float initDamage,
+                             final Character race, final Character land) {
+        return Math.round(initDamage * landModifier.get(land)
+                * raceModifier.get(race));
+    }
+
+    private float calculateIntermediaryDamage(final Character land) {
+        float multipliedDamage = damage;
+        if (counter == 0 && land == landModifier.getPreferredLand()) {
+            multipliedDamage *= DAMAGE_MULTIPLIER;
+        }
+        return multipliedDamage;
     }
 }

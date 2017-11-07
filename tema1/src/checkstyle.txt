@@ -1,6 +1,4 @@
 Starting audit...
-[ERROR] /home/mihnea/facultate/poo/tema1/src/loop/Factory.java:2:1: Utility classes should not have a public or default constructor. [HideUtilityClassConstructor]
-[ERROR] /home/mihnea/facultate/poo/tema1/src/loop/Hero.java:31:27: Variable 'overTimeEffect' must be private and have accessor methods. [VisibilityModifier]
-[ERROR] /home/mihnea/facultate/poo/tema1/src/main/Main.java:19:29: Parameter args should be final. [FinalParameters]
+[ERROR] /home/mihnea/facultate/poo/tema1/src/loop/Execute.java:39:47: Inner assignments should be avoided. [InnerAssignment]
 Audit done.
-Checkstyle ends with 3 errors.
+Checkstyle ends with 1 errors.

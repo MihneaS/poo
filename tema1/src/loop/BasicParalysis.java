@@ -1,7 +1,12 @@
+/*
+ * POO - tema1
+ * SERBAN Mihnea
+ * 321CA
+ */
+
 package loop;
 
 abstract class BasicParalysis extends RogueAbility {
-
     private static final float RM_ROGUE = 0.9f;
     private static final float RM_KNIGHT = 0.8f;
     private static final float RM_PYROMANCER = 1.2f;

@@ -1,7 +1,12 @@
+/*
+ * POO - tema1
+ * SERBAN Mihnea
+ * 321CA
+ */
+
 package loop;
 
 final class Execute extends KnightAbility implements InstantAbility {
-
     private static final float BASE_HP_LIMIT = 0.2f;
     private static final int BASE_DAMAGE = 200;
     private static final int BONUS_DAMAGE_PER_LEVEL = 30;
@@ -11,7 +16,7 @@ final class Execute extends KnightAbility implements InstantAbility {
     private static final float RM_KNIGHT = 1f;
     private static final float RM_PYROMANCER = 1.1f;
     private static final float RM_WIZARD = 0.8f;
-    private Float hpLimit = BASE_HP_LIMIT;
+    private float hpLimit = BASE_HP_LIMIT;
     private int damage = BASE_DAMAGE;
 
     Execute() {
@@ -28,17 +33,17 @@ final class Execute extends KnightAbility implements InstantAbility {
 
     @Override
     public void applyTo(final Hero hero, final Character land) {
-        int modifiedDamage;
+        int finalDamage;
         int damageForSimulation;
         if ((double) hero.hp < hpLimit * hero.maxHp) {
+            finalDamage = hero.hp;
             damageForSimulation = hero.hp;
-            hero.receiveDamage(damageForSimulation);
         } else {
-            modifiedDamage = (int) Math.round(damage
+            finalDamage = (int) Math.round(damage
                     * raceModifier.get(hero.race) * landModifier.get(land));
             damageForSimulation = Math.round(damage * landModifier.get(land));
-            hero.receiveDamage(modifiedDamage);
         }
+        hero.receiveDamage(finalDamage);
         damageDealtThisRound = damageForSimulation;
         usedThisRound = true;
     }
@@ -51,5 +56,4 @@ final class Execute extends KnightAbility implements InstantAbility {
             applyTo((Hero) hero, land);
         }
     }
-
 }

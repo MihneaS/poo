@@ -1,3 +1,9 @@
+/*
+ * POO - tema1
+ * SERBAN Mihnea
+ * 321CA
+ */
+
 package main;
 
 import decodedfileio.implementations.FileReader;
@@ -13,24 +19,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 public final class Main {
+    private Main() { } //role of this avoid [HideUtilityClassConstructor] error
 
-    private Main(final int i) { }
-
-    public static void main(String[] args) {
+    public static void main(final String[] args) {
         int n, m, p, r;
         List<String> inputMap;
         String moveCommands;
         IReader input;
         IWriter output;
         Terrain terrain;
-        List<Hero> heroes = new ArrayList<>();
-
-        if (args.length == 0) {
-            args = new String[2];
-            String test = "dense";
-            args[0] = "/home/mihnea/facultate/poo/tema1/src/checker/resources/in/" + test + ".in";
-            args[1] = "/home/mihnea/facultate/poo/tema1/src/checker/resources/out/" + test + ".out";
-        }
+        List<Hero> heroes = new ArrayList<Hero>();
 
         try {
             input = new FileReader(args[0]);
@@ -38,7 +36,7 @@ public final class Main {
 
             n = input.nextInt();
             m = input.nextInt();
-            inputMap = new ArrayList<>(n);
+            inputMap = new ArrayList<String>(n);
             for (int i = 0; i < n; ++i) {
                 inputMap.add(input.nextWord());
             }
@@ -50,15 +48,10 @@ public final class Main {
                         input.nextInt(),
                         input.nextInt()));
                 terrain.addHero(heroes.get(i));
-//                heroes.get(i).nrCrt = i;
             }
-
-            Hero.zaHero = heroes.get(37);
 
             r = input.nextInt();
             for (int i = 0; i < r; ++i) {
-                        System.out.println("ROUND " + i + ":");
-                        System.out.println(Hero.zaHero.overTimeEffect);
                 for (Hero hero : heroes) {
                     hero.prepareForNextRound();
                     hero.applyOverTimeEffect();
@@ -66,13 +59,6 @@ public final class Main {
 
                 moveCommands = input.nextWord();
                 for (int j = 0; j < p; ++j) {
-//                    if (j == 43) {
-//                        if (heroes.get(j).isStunned()) {
-//                            System.out.println(heroes.get(j) + " is stunned");
-//                        } else {
-//                            System.out.println(heroes.get(j).getPos());
-//                        }
-//                    }
                     if (heroes.get(j).isAlive()
                             && !heroes.get(j).isStunned()) {
                         terrain.moveHero(heroes.get(j),
@@ -80,7 +66,6 @@ public final class Main {
                     }
                 }
 
-                //  FIGHT
                 for (int j = 0; j < p; ++j) {
                     Hero thisHero;
                     thisHero = heroes.get(j);
@@ -88,8 +73,11 @@ public final class Main {
                         Hero otherHero;
                         otherHero = terrain.otherHeroNextTo(thisHero);
                         if (otherHero != null && otherHero.isAlive()) {
-                            thisHero.applyAbilitiesTo(otherHero,
+                            thisHero.fight(otherHero,
                                     terrain.getLandType(thisHero));
+                            if (!thisHero.isAlive()) {
+                                terrain.removeHero(thisHero);
+                            }
                             if (!otherHero.isAlive()) {
                                 terrain.removeHero(otherHero);
                             }

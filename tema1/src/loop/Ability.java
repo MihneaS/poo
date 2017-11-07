@@ -1,3 +1,9 @@
+/*
+ * POO - tema1
+ * SERBAN Mihnea
+ * 321CA
+ */
+
 package loop;
 
 import java.util.HashMap;
@@ -5,9 +11,10 @@ import java.util.Map;
 
 import static loop.Hero.NA_RACE;
 
-abstract class Ability implements BasicAbility {
+abstract class Ability {
     protected class RaceModifier {
-        private final Map<Character, Float> map = new HashMap<>();
+        private final Map<Character, Float> map =
+                new HashMap<Character, Float>();
 
         RaceModifier(final Float rogue, final Float knight,
                      final Float pyromancer, final Float wizard) {
@@ -25,7 +32,7 @@ abstract class Ability implements BasicAbility {
 
     protected class LandModifier {
         private final Character preferredLand;
-        private final Float modifier;
+        private final float modifier;
 
         LandModifier(final Character preferredLand, final Float modifier) {
             this.preferredLand = preferredLand;
@@ -55,5 +62,4 @@ abstract class Ability implements BasicAbility {
         damageDealtThisRound = 0;
         usedThisRound = false;
     }
-
 }

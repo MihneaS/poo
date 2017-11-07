@@ -1,3 +1,9 @@
+/*
+ * POO - tema1
+ * SERBAN Mihnea
+ * 321CA
+ */
+
 package loop;
 
 public final class ParalysisOverTime extends BasicParalysis
@@ -31,5 +37,4 @@ public final class ParalysisOverTime extends BasicParalysis
             hero.finishOvertimeEffect();
         }
     }
-
 }

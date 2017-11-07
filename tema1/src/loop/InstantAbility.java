@@ -1,7 +1,12 @@
+/*
+ * POO - tema1
+ * SERBAN Mihnea
+ * 321CA
+ */
+
 package loop;
 
-interface InstantAbility extends BasicAbility {
-
+interface InstantAbility {
     void applyTo(Hero hero, Character land);
 
     default void applyTo(final PuppetHero puppet, final Character land) {
@@ -9,4 +14,6 @@ interface InstantAbility extends BasicAbility {
     }
 
     void levelUp();
+
+    void refresh();
 }

@@ -1,7 +1,12 @@
+/*
+ * POO - tema1
+ * SERBAN Mihnea
+ * 321CA
+ */
+
 package loop;
 
 final class SlamOverTime extends Ability implements OverTimeEffect {
-
     SlamOverTime(final Hero hero) {
         hero.stun();
         turns = 1;

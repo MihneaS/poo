@@ -1,7 +1,12 @@
+/*
+ * POO - tema1
+ * SERBAN Mihnea
+ * 321CA
+ */
+
 package loop;
 
 class Paralysis extends BasicParalysis implements InstantAbility {
-
     private static final int BASE_DAMAGE = 40;
     private static final int BONUS_DAMAGE_PER_LEVEL = 10;
     protected int damage = BASE_DAMAGE;

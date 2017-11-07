@@ -1,10 +1,15 @@
+/*
+ * POO - tema1
+ * SERBAN Mihnea
+ * 321CA
+ */
+
 package loop;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Hero {
-
     private static final int XP_THRESHOLD_ADDITION = 50;
     private static final int P_BASE_HP = 500;
     private static final int P_PER_LEVEL_HP = 50;
@@ -27,17 +32,13 @@ public class Hero {
     private int xp = 0;
     private int xpThreshold = BASE_XP_THRESHOLD;
     private boolean alive = true;
-    private List<InstantAbility> abilities = new ArrayList<>(2);
-    public OverTimeEffect overTimeEffect = new SentinelEffect();
+    private List<InstantAbility> abilities = new ArrayList<InstantAbility>(2);
+    private OverTimeEffect overTimeEffect = new SentinelEffect();
     private boolean stunned = false;
     private boolean toBeUnStunned = false;
     private boolean onCoolDown = false;
     private int row;
     private int col;
-
-
-    public static Hero zaHero;
-//    public int nrCrt;
 
     public Hero(final Character race, final int row, final int col) {
         this.race = race;
@@ -73,21 +74,12 @@ public class Hero {
         hp = maxHp;
     }
 
-    public Hero() {
-    }
-
-
-//    public String getPos() {
-//        return row + " " + col;
-//    }
+    public Hero() { }
 
     /**
-     * Scade damage din hp..
+     * Scade damage din hp.
      */
     public void receiveDamage(final int damage) {
-        if(this == zaHero) {
-            System.out.println(damage);
-        }
         if (hp <= damage) {
             hp = 0;
             alive = false;
@@ -107,6 +99,37 @@ public class Hero {
         abilities.get(1).levelUp();
         xpThreshold += XP_THRESHOLD_ADDITION;
         ++level;
+    }
+
+    public final void applyOverTimeEffect() {
+        overTimeEffect.applyTo(this);
+    }
+
+    public final void fight(final Hero other, final Character land) {
+        if (!isOnCoolDown()) {
+            onCoolDown = true;
+            if (!other.isAlive()) {
+                return;
+            }
+            applyAbilitiesTo(other, land);
+            if (!other.isAlive() && other.getRace() != 'N') {
+                other.fight(this, land);
+                winXPAndLevelUpFrom(other);
+            }
+        }
+    }
+
+    /**
+     * Applies ability to this.
+     * Used for double dispatch. Any Overriding should have the same body.
+     */
+    public void beAffectedBy(final InstantAbility ability, final Character land) {
+        ability.applyTo(this, land);
+    }
+
+    final void applyAbilitiesTo(final Hero other, final Character land) {
+        other.beAffectedBy(abilities.get(0), land);
+        other.beAffectedBy(abilities.get(1), land);
     }
 
     final void setOverTimeEffect(final OverTimeEffect overTimeEffect) {
@@ -129,40 +152,6 @@ public class Hero {
         return stunned;
     }
 
-    public final void applyOverTimeEffect() {
-        overTimeEffect.applyTo(this);
-    }
-
-    public final void applyAbilitiesTo(final Hero other, final Character land) {
-        if (!isOnCoolDown()) {
-            onCoolDown = true;
-            if (!other.isAlive()) {
-                return;
-            }
-//            if (zaHero == this && !(other instanceof PuppetHero)) {
-//                System.out.print("Our " + zaHero+ " attacked " + other + "->");
-//            } else if (zaHero == other) {
-//                System.out.print(other + " attacked our "+zaHero + "->" );
-//
-//            }
-            abilities.get(0).applyTo(other, land);
-            abilities.get(1).applyTo(other, land);
-//            if (zaHero == this && !(other instanceof PuppetHero)) {
-//                System.out.println(other);
-//            } else if (zaHero == other) {
-//                System.out.println(zaHero);
-//
-//            }
-            if (!other.isAlive() && other.getRace() != 'N') {
-                other.applyAbilitiesTo(this, land);
-                winXPAndLevelUpFrom(other);
-//                if (this == zaHero) {
-//                    System.out.println("OUR HERO LEVELED UP" + zaHero);
-//                }
-            }
-        }
-    }
-
     private void winXPAndLevelUpFrom(final Hero killed) {
         if (this.isAlive()) {
             winXp(killed);
@@ -170,11 +159,6 @@ public class Hero {
                 levelUp();
             }
         }
-    }
-
-    final void applyAbilitiesTo(final PuppetHero hero, final Character land) {
-        abilities.get(0).applyTo(hero, land);
-        abilities.get(1).applyTo(hero, land);
     }
 
     private boolean canLevelUp() {

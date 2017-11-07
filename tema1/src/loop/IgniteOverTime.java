@@ -1,7 +1,12 @@
+/*
+ * POO - tema1
+ * SERBAN Mihnea
+ * 321CA
+ */
+
 package loop;
 
 final class IgniteOverTime extends BasicIgnite implements OverTimeEffect {
-
     private static final int BASE_DAMAGE = 50;
     private static final int BONUS_DAMAGE_PER_LEVEL = 30;
     private static final int INITIAL_TURNS = 2;
