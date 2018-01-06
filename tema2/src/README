@@ -1,9 +1,59 @@
+Serban Mihnea 321CA
+Tema2 POO
 
+                    %MiniCad%
+                    %%%%%%%%%
 
-Quick fill algorithm from
-https://www.codeproject.com/Articles/6017/QuickFill-An-efficient-flood-fill-algorithm
+Obs: voi numi builderi clasele ce parseaza inputul si apeleaza constructorii
+formelor pentru a nu le confunda cu constructorii.
 
+Obs: clasele din cad.shapes si PaintingQueue implementeaza visitor pattern
+
+Obs: clasa Factory implementeaza factory pattern
+
+Obs: clasa Factory si clasele din cad.builders implementeaza singleton pattern
+
+main:
+"""""
+    are la dispozitie doar clasele PaintingQueue, Factory si pachetul decodefileio.
+Foloseste FileReader(din decodedfileio) pt a citi forma ce trebuie creata si
+argumentele acesteia si le paseaza instantei de Factory, care intoarce o forma
+ce intra intr-o instanta de PaintingQueue. La final toate formele sunt
+desenate, si afisate intr-un png.
+
+cad.formain:
+""""""""""""
+    contine cele 2 clase specifice MiniCad pentru main, PaintingQueue si Factory.
+PaintingQueue contine un HashMap de constructori, astfel la fiecare apelare
+a functiei build(), se foloseste numele formei pentru a scoate builder-ul
+necesar si i se paseaza argumentele necesare.
+
+cad.builders:
+"""""""""""""
+    contine toti builderii si clasa Parser pentru functii de parsare.
+fiecare builder parseaza argumentele folosind functiile clasei Parser si
+initializeaza o forma. Toti (mai putin Parser) implementeaza IBuilder.
+
+cad.shapes:
+"""""""""""
+    contine toate clase cu forme desenabile. Acestea se folosesc exclusiv de
+cad.fundamentals.Image, cu exceptia Canvas, care trebuie sa apeleze o functie
+pentru instantierea instantei de Image din PrintingQueue. Toate implementeaza
+IShape.
+
+cad.interfaces:
+"""""""""""""""
+    toate interfetele, IShape pentru forme si IBuilder pentru builderi.
+
+cad.fundamentals:
+"""""""""""""""""
+    stocarea si manipularea intima a imaginii + algoritmi de desenarea prin
+clasa Image
+
+decodedfileio:
+""""""""""""""
+    versiunea decodata a fileio.jar + functia restOfTheLine
+
+Bibliografie:
 bresenhams cirle
-algorithm written in a  programming language
 http://www.geeksforgeeks.org/bresenhams-circle-drawing-algorithm/
-

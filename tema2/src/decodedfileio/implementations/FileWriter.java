@@ -1,5 +1,5 @@
 /*
- * POO - tema1
+ * POO - tema2
  * SERBAN Mihnea
  * 321CA
  */

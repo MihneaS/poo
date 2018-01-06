@@ -1,5 +1,5 @@
 /*
- * POO - tema1
+ * POO - tema2
  * SERBAN Mihnea
  * 321CA
  */
@@ -15,53 +15,61 @@ import decodedfileio.interfaces.IReader;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.StringTokenizer;
+import java.util.Arrays;
 
 public final class FileReader implements IReader {
     private static final String DELIMITER = " ";
     private java.io.FileReader fileReader;
     private BufferedReader bufferedReader;
-    private StringTokenizer stringTokenizer;
+    private String[] words;
+    private int i;
 
     public FileReader(final String filePath) throws FileNotFoundException {
         this.fileReader = new java.io.FileReader(filePath);
-        this.bufferedReader = new BufferedReader(this.fileReader);
+        this.bufferedReader = new BufferedReader(fileReader);
     }
 
     private void readLine() throws IOException {
-        this.stringTokenizer = new StringTokenizer(this.bufferedReader.readLine(), " ");
+        words = bufferedReader.readLine().split(DELIMITER);
+        i = 0;
     }
 
     private String nextToken() throws IOException {
-        if (this.stringTokenizer == null || !this.stringTokenizer.hasMoreTokens()) {
-            this.readLine();
+        if (words == null || i >= words.length) {
+            readLine();
         }
 
-        return this.stringTokenizer.nextToken();
+        return words[i++];
     }
 
     public boolean nextBool() throws IOException {
-        return Boolean.parseBoolean(this.nextToken());
+        return Boolean.parseBoolean(nextToken());
     }
 
     public int nextInt() throws IOException {
-        return Integer.parseInt(this.nextToken());
+        return Integer.parseInt(nextToken());
     }
 
     public long nextLong() throws IOException {
-        return Long.parseLong(this.nextToken());
+        return Long.parseLong(nextToken());
     }
 
     public float nextFloat() throws IOException {
-        return Float.parseFloat(this.nextToken());
+        return Float.parseFloat(nextToken());
     }
 
     public double nextDouble() throws IOException {
-        return Double.parseDouble(this.nextToken());
+        return Double.parseDouble(nextToken());
     }
 
     public String nextWord() throws IOException {
-        return this.nextToken();
+        return nextToken();
+    }
+
+    public String[] restOfTheLine() {
+        String[] restOfTheWords = Arrays.copyOfRange(words, i, words.length);
+        words = new String[0];
+        return restOfTheWords;
     }
 
     public void close() throws IOException {

@@ -1,5 +1,5 @@
 /*
- * POO - tema1
+ * POO - tema2
  * SERBAN Mihnea
  * 321CA
  */
@@ -25,6 +25,8 @@ public interface IReader {
     double nextDouble() throws IOException;
 
     String nextWord() throws IOException;
+
+    String[] restOfTheLine();
 
     void close() throws IOException;
 }

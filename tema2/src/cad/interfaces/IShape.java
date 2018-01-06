@@ -1,7 +1,18 @@
+/*
+ * POO - tema 2
+ * SERBAN Mihnea
+ * 321CA
+ */
+
 package cad.interfaces;
 
-import cad.fundamental.Canvas;
+import cad.formain.PaintingQueue;
+import cad.fundamental.Image;
 
 public interface IShape {
-    void drawOn(Canvas canvas);
+    default void draw(PaintingQueue paintingQueue) {
+        draw(paintingQueue.getImage());
+    }
+
+    void draw(Image image);
 }

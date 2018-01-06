@@ -1,10 +1,15 @@
+/*
+ * POO - tema 2
+ * SERBAN Mihnea
+ * 321CA
+ */
+
 package cad.shapes;
 
-import cad.fundamental.Canvas;
+import cad.fundamental.Image;
 import cad.interfaces.IShape;
 
-public class Rectangle implements IShape {
-    public final static String NAME = "RECTANGLE";
+public final class Rectangle implements IShape {
     private final int minX;
     private final int maxX;
     private final int minY;
@@ -12,30 +17,31 @@ public class Rectangle implements IShape {
     private final int edgeColor;
     private final int fillColor;
 
-    public Rectangle(final int x, final int y, final int height, final int width,
-                     final int edgeColor, final int fillColor) {
-        if (width >= 0) {
-            minX = x;
-            maxX = x + width - 1;
+    public Rectangle(final int xP, final int yP,
+                     final int heightP, final int widthP,
+                     final int edgeColorP, final int fillColorP) {
+        if (widthP >= 0) {
+            minX = xP;
+            maxX = xP + widthP - 1;
         } else {
-            maxX = x;
-            minX = x + width - 1;
+            maxX = xP;
+            minX = xP + widthP - 1;
         }
-        if (height >= 0) {
-            minY = y;
-            maxY = y + height - 1;
+        if (heightP >= 0) {
+            minY = yP;
+            maxY = yP + heightP - 1;
         } else {
-            maxY = y;
-            minY = y + height - 1;
+            maxY = yP;
+            minY = yP + heightP - 1;
         }
-        this.edgeColor = edgeColor;
-        this.fillColor = fillColor;
+        this.edgeColor = edgeColorP;
+        this.fillColor = fillColorP;
     }
 
     @Override
-    public void drawOn(Canvas canvas) {
-        canvas.drawRectangle(minX, minY, maxX, maxY, edgeColor);
-        canvas.fillRectangle(minX + 1, minY + 1, maxX - 1, maxY - 1,
+    public void draw(final Image image) {
+        image.drawRectangle(minX, minY, maxX, maxY, edgeColor);
+        image.fillRectangle(minX + 1, minY + 1, maxX - 1, maxY - 1,
                 fillColor);
     }
 }

@@ -1,0 +1,16 @@
+
+public class Point {
+
+}
+
+
+/*static class T {
+	void al (int a){
+		a = 5;
+	}
+	static void main (String[] args){
+		int a = 2;
+		T.al(a);
+		System.out.println(a);
+	}
+}*/

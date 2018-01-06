@@ -1,4 +1,2 @@
 Starting audit...
-[ERROR] /home/mihnea/facultate/poo/tema1/src/loop/Execute.java:39:47: Inner assignments should be avoided. [InnerAssignment]
 Audit done.
-Checkstyle ends with 1 errors.

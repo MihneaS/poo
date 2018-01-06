@@ -1,0 +1,32 @@
+
+public class Polygon {
+	Point[] points;
+	int n;
+	
+	Polygon(int n) {
+		for (int i = 0; i < n; i++) {
+			points[i] = new Point();
+		}
+	}
+	
+	Polygon(float[] colturi){
+		this(colturi.length/2);
+		int n = colturi.length / 2;
+		for (int i = 0; i < n; i++) {
+			points[i].x = colturi[2*i];
+			points[i].y = colturi[2*i+1];
+		}
+	}
+	
+	void afis(){
+		for (int i = 0; i < points.length; i++) {
+			points[i].afis();
+			System.out.print(" ");
+		}
+		System.out.println();
+	}
+
+	static void main (String[] args) {
+		Polygon poly = new Poly({1.2, 2.3, 3.4, 4.5});
+	}
+}

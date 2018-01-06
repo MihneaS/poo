@@ -1,5 +1,5 @@
 /*
- * POO - tema1
+ * POO - tema2
  * SERBAN Mihnea
  * 321CA
  */
@@ -59,6 +59,11 @@ public final class FileSystem implements IReader, IWriter {
 
     public String nextWord() throws IOException {
         return this.fileReader.nextWord();
+    }
+
+    @Override
+    public String[] restOfTheLine() {
+        return this.fileReader.restOfTheLine();
     }
 
     private void closeReader() throws IOException {
