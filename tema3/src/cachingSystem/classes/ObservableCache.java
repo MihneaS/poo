@@ -42,7 +42,7 @@ public abstract class ObservableCache<K, V> implements Cache<K, V> {
      */
     public void clearStaleEntries() {
         Pair<K, V> pair = getEldestEntry();
-        while (cacheStalePolicy.shouldRemoveEldestEntry(pair) && !isEmpty()) {
+        while (!isEmpty() && cacheStalePolicy.shouldRemoveEldestEntry(pair)) {
             remove(pair.getKey());
             pair = getEldestEntry();
         }

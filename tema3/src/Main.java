@@ -57,7 +57,7 @@ public final class Main {
         if (args.length == 0) {
             //TODO STERGE
             args = new String[1];
-            int testNr = 2;
+            int testNr = 3;
             args[0] = "./tests/test_" + testNr;
             //throw new IllegalArgumentException("Missing path to test file.");
         }
