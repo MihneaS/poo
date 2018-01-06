@@ -83,19 +83,19 @@ public class MyLinkedHashMap<K, V> {
         if(keyToNode.containsKey(key)) {
             node = keyToNode.get(key);
             node.pair.setValue(value);
-            node.previous = gate;
+//            node.previous = gate;
             node.next.previous = node.previous;
             node.previous.next = node.next;
-            keyToNode.put(key, node);
+//            keyToNode.put(key, node);
         } else {
             _size++;
             node = new Node(key, value);
             keyToNode.put(key, node);
         }
-        node.next = root();
-        root().previous = node;
+        node.next = gate.next;
+        gate.next.previous = node;
         node.previous = gate;
-        setRoot(node);
+        gate.next = node;
     }
 
     public int size() {
