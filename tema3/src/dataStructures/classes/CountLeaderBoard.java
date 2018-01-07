@@ -20,6 +20,8 @@ public class CountLeaderBoard<E> {
         Rank(Ranker sentinel) {
             lastEnteredRanker = sentinel;
         }
+
+        public Rank() { }
     }
 
     class Ranker{
@@ -38,39 +40,59 @@ public class CountLeaderBoard<E> {
 
     HashMap<E, Ranker> allRankers = new HashMap<E, Ranker>();
     Ranker sentinel;
-    Rank leastRank;
-    Rank highestRank = leastRank;
+    Rank bottomRank;
+    Rank highestRank = bottomRank;
+    Rank sentinelRank;
 
     public CountLeaderBoard() {
         sentinel = new Ranker();
+        sentinelRank = new Rank();
         sentinel.next = sentinel;
         sentinel.previuos = sentinel;
-        leastRank = new Rank(sentinel);
-        leastRank.level = 1;
+        bottomRank = new Rank(sentinel);
+        bottomRank.level = 1;
+        bottomRank.nextRank = sentinelRank;
+        sentinelRank.level = Integer.MAX_VALUE;
     }
 
     public void add(E element) {
         Ranker ranker;
         if (allRankers.containsKey(element)) {
-            // TODO remove empty ranks
+            // get ranker
             ranker = allRankers.get(element);
+            // take him out from current rank
             ranker.previuos.next = ranker.next;
             ranker.next.previuos = ranker.previuos;
-            if (ranker.rank.nextRank == null) {
-                highestRank = new Rank(sentinel);
-                highestRank.previousRank = ranker.rank;
-                ranker.rank.nextRank = highestRank;
-                highestRank.level = ranker.rank.level + 1;
+            // create and insert next rank if necesearry
+            if (ranker.rank.nextRank.level - ranker.rank.level > 1) {
+                Rank newRank = new Rank(sentinel);
+                newRank.nextRank = ranker.rank.nextRank;
+                newRank.previousRank = ranker.rank;
+                ranker.rank.nextRank = newRank;
+                newRank.level = ranker.rank.level + 1;
+                if (newRank.nextRank == sentinelRank) {
+                    highestRank = newRank;
+                }
             }
+            // delete rank if empty and not bottom rank
+            if (ranker.rank != bottomRank) {
+                Rank prevRank = ranker.rank.previousRank;
+                if (prevRank.lastEnteredRanker == sentinel
+                        && prevRank != bottomRank) {
+                    prevRank.previousRank.nextRank = prevRank.nextRank;
+                    prevRank.nextRank.previousRank = prevRank.previousRank;
+                }
+            }
+            // insert ranker at the begginig of the next rank
             ranker.rank = ranker.rank.nextRank;
             ranker.previuos = ranker.rank.lastEnteredRanker;
             ranker.rank.lastEnteredRanker = ranker;
         } else {
             ranker = new Ranker(sentinel);
-            ranker.previuos = leastRank.lastEnteredRanker;
-            ranker.rank = leastRank;
+            ranker.previuos = bottomRank.lastEnteredRanker;
+            ranker.rank = bottomRank;
             ranker.previuos.next = ranker;
-            leastRank.lastEnteredRanker = ranker;
+            bottomRank.lastEnteredRanker = ranker;
             allRankers.put(element, ranker);
         }
     }
