@@ -2,7 +2,7 @@ build:
 	javac -cp src src/Main.java	
 	
 clean:
-	find -name '*.class' | xargs rm -f
+	find -name '*.class' | grep src | xargs rm -f
 	
 doc:
 	find -name "*.java" > sources
