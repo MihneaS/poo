@@ -1,6 +1,0 @@
-public class BookstoreTest {
-	Book book = new Book();
-	book.title = "Sad Life";
-	book.author = "Manum";
-	
-}
